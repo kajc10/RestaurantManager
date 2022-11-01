@@ -11,6 +11,7 @@ export function createSwaggerConfig() {
         .setDescription('RestaurantManager Api description...')
         .setVersion('0.0.1')
         .addTag('auth')
+        .addTag('user')
         .build();
 }
 

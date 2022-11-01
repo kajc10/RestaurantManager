@@ -12,12 +12,12 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  },
+    "esModuleInterop": true,
+    "paths": {
+        "@shared/*": ["shared/*"]
+    },
+    "resolveJsonModule": true
+},
   "include": ["src/**/*", "test/**/*",],
   "exclude": ["client/**/*"]
 }
