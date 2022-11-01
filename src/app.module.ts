@@ -11,13 +11,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     AuthModule,
-    //TODO: figure out env filepath
     ConfigModule.forRoot({
       envFilePath: [
         'src/config/server/.env',
         'src/config/database/.env'
-        //path.resolve('src', 'config', 'server', '.env'),
-        //path.resolve('src', 'config', 'database', '.env'),
       ],
       load: [serverConfig, databaseConfig],
       isGlobal: true,

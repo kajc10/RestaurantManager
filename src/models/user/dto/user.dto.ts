@@ -14,6 +14,10 @@ export class UserDto {
     @Expose()
     username: string;
 
+    @ApiProperty()
+    @Expose()
+    isAdmin: boolean;
+
     constructor(partial: Partial<UserDto>) {
         Object.assign(this, partial);
     }

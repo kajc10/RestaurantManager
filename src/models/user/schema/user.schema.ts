@@ -10,6 +10,9 @@ export class User {
 
     @Prop({ required: false })
     password?: string;
+
+    @Prop({ required: false })
+    isAdmin?: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
