@@ -7,10 +7,12 @@ import databaseConfig from './config/database/database.config';
 import serverConfig from './config/server/server.config';
 import path from 'path';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from './models/user/user.module';
 
 @Module({
   imports: [
     AuthModule,
+    UserModule,
     ConfigModule.forRoot({
       envFilePath: [
         'src/config/server/.env',
