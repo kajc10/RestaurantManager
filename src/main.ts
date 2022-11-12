@@ -12,6 +12,7 @@ export function createSwaggerConfig() {
         .setVersion('0.0.1')
         .addTag('auth')
         .addTag('user')
+        .addBearerAuth()
         .build();
 }
 

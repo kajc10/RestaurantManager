@@ -5,9 +5,13 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import databaseConfig from './config/database/database.config';
 import serverConfig from './config/server/server.config';
-import path from 'path';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './models/user/user.module';
+import { FoodModule } from './models/food/food.module';
+import { OrderModule } from './models/order/order.module';
+import { ReservationModule } from './models/reservation/reservation.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -30,8 +34,17 @@ import { UserModule } from './models/user/user.module';
       }),
       inject: [databaseConfig.KEY],
     }),
+    FoodModule,
+    OrderModule,
+    ReservationModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard
+    }
+  ],
 })
 export class AppModule {}

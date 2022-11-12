@@ -33,3 +33,12 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Generated client side SDK
+/client/src/app/sdk
+
+# Uploaded test data
+/upload
+
+# Local configuration files
+/src/config/*/local*.env

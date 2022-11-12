@@ -1,6 +1,7 @@
 import { ClassSerializerInterceptor, Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import {
+    ApiBearerAuth,
     ApiBody,
     ApiHeader,
     ApiOkResponse,
@@ -18,6 +19,7 @@ export class UserController {
 
     @Get()
     @ApiOkResponse({ type: [UserDto] })
+    @ApiBearerAuth()
     @ApiHeader({
         name: 'X-Filter',
         description: 'Filter',
