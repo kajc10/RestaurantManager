@@ -19,5 +19,4 @@
     "resolveJsonModule": true
 },
   "include": ["src/**/*", "test/**/*",],
-  "exclude": ["client/**/*"]
 }

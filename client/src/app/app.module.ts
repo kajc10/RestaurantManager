@@ -13,6 +13,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { Configuration } from './sdk';
 import { NestAuthService } from './core/auth/nest-auth.service';
 import { BASE_URL } from './base-urls';
+import { LayoutModule } from './core/layout/layout.module';
+import { UserModule } from './features/user/user.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { BASE_URL } from './base-urls';
     CoreModule,
     HttpClientModule,
     MaterialModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    LayoutModule,
+    UserModule
   ],
   providers: [
     CookieService,

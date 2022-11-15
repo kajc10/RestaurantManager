@@ -1,0 +1,30 @@
+<div class="root" fxLayout="column" fxLayoutAlign="start center">
+    <div class="table-container" fxFlex>
+        <p class="title">Felhasználók</p>
+        <table mat-table [dataSource]="dataSource" matSort>
+    
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Felhasználónév </th>
+                <td mat-cell *matCellDef="let user">
+                    {{user.username}}
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="admin">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Admin jogosultság</th>
+                <td mat-cell *matCellDef="let user">{{ user.isAdmin ? 'igen' : 'nem'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="operations">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Műveletek </th>
+                <td mat-cell *matCellDef="let user">
+                    TODO
+                </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

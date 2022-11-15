@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/sdk';
 import { NestAuthService } from './nest-auth.service';
@@ -11,6 +12,7 @@ export class LoginService {
 	constructor(
 		private nestAuthService: NestAuthService,
 		private authService: AuthService,
+		private router: Router,
 	) { }
 
 	login(username: string, password: string): Observable<any> {
@@ -35,5 +37,6 @@ export class LoginService {
 
 	logout() {
 		this.nestAuthService.clear();
+		this.router.navigate(['/login']);
 	}
 }

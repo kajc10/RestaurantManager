@@ -5,6 +5,7 @@ import { TransformObjectIdToString } from 'src/common/decorators/transform-objec
 
 @Exclude()
 export class UserDto {
+    //TODO: store more information about users
     @Expose({ name: 'id' })
     @TransformObjectIdToString()
     @ApiProperty({ name: 'id', type: String })
