@@ -1,0 +1,25 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="root" fxLayout="column" fxLayoutAlign="center center">
+    <form class="mat-elevation-z4 login-form-container" fxLayout="column" [formGroup]="loginForm" (ngSubmit)="login()">
+        <p class="title">Lorem ipsum Restaurnat</p>
+        <div fxLayout="row" class="form-field" fxLayoutAlign="start center">
+            <mat-icon matListIcon>person</mat-icon>
+            <mat-form-field hideRequiredMarker fxFlex>
+                <input autocomplete="off" matInput required placeholder="Felhasználónév" formControlName="username">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" class="form-field" fxLayoutAlign="start center">
+            <mat-icon matListIcon>lock</mat-icon>
+            <mat-form-field hideRequiredMarker fxFlex>
+                <input autocomplete="off" matInput type="password" required placeholder="Jelszó" formControlName="password">
+            </mat-form-field>
+        </div>
+        <div class="error login-error" fxLayoutAlign="end center">{{error}}</div>
+        <div fxLayoutAlign="center center" fxFlex class="form-field">
+            <button type="submit"
+                class="submit"
+                mat-raised-button
+                color="primary" fxFlex>Bejelentkezés</button>
+        </div>
+    </form>
+</div>
