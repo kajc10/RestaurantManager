@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "build:sdk": "npx openapi-generator-cli generate -g typescript-angular -i http://localhost:3000/swagger-json -o ./client/src/app/sdk",
+    "build:sdk": "npx openapi-generator-cli generate -g typescript-angular -i http://localhost:3000/swagger-json -o ../client/src/app/sdk",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
