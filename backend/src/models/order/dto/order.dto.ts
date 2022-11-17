@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude, Expose, Type } from 'class-transformer';
 import { Schema } from 'mongoose';
-import { TransformObjectIdToString } from 'src/common/decorators/transform-objectid-to-string';
-import { Food } from 'src/models/food/schema/food.schema';
+import { TransformObjectIdToString } from '../../../common/decorators/transform-objectid-to-string';
+import { FoodDto } from '../../food/dto/food.dto';
 
 @Exclude()
 export class OrderDto {
@@ -13,7 +13,8 @@ export class OrderDto {
 
     @ApiProperty()
     @Expose()
-    orderItems: Food[]; 
+    @Type(() => FoodDto)
+    orderItems: FoodDto[]; 
 
     @ApiProperty()
     @Expose()

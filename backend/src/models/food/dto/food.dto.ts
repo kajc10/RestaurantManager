@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 import { Schema } from 'mongoose';
-import { TransformObjectIdToString } from 'src/common/decorators/transform-objectid-to-string';
+import { TransformObjectIdToString } from '../../../common/decorators/transform-objectid-to-string';
 
 @Exclude()
 export class FoodDto {
