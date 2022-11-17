@@ -3,31 +3,30 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { UserDto } from 'src/app/sdk';
-import { UserService } from '../user.service';
+import { FoodDto } from 'src/app/sdk';
+import { FoodService } from '../food.service';
 
 @Component({
-    selector: 'app-user-list',
-    templateUrl: './user-list.component.html',
-    styleUrls: ['./user-list.component.scss']
+    selector: 'app-foods-list',
+    templateUrl: './foods-list.component.html',
+    styleUrls: ['./foods-list.component.scss']
 })
-export class UserListComponent implements OnInit {
-    dataSource = new MatTableDataSource<UserDto>();
+export class FoodsListComponent implements OnInit {
+    dataSource = new MatTableDataSource<FoodDto>();
     displayedColumns = [
-        'username',
-        'admin',
+        'name',
+        'price',
         'operations',
     ];
-    users: UserDto[] = [];
+
+    foods: FoodDto[] = [];
 
     @ViewChild(MatSort, { static: true }) sort: MatSort;
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     constructor(
-        private userService: UserService,
+        private foodService: FoodService,
         private spinner: NgxSpinnerService,
-        // private dialog: MatDialog,
-        // private nestAuthService: NestAuthService,
     ) { }
 
     ngOnInit(): void {
@@ -39,10 +38,10 @@ export class UserListComponent implements OnInit {
 
     private reload(): void {
         this.spinner.show();
-        this.userService.getUsers().subscribe({
-            next: (users: UserDto[]) => {
-                this.users = users,
-                this.dataSource.data = this.users;
+        this.foodService.getFoods().subscribe({
+            next: (foods: FoodDto[]) => {
+                this.foods = foods;
+                this.dataSource.data = this.foods;
             },
             complete: () => {
                 this.spinner.hide();
@@ -54,6 +53,8 @@ export class UserListComponent implements OnInit {
         });
     }
 
-    addUser() {}
+    addFood() {
+
+    }
 
 }
