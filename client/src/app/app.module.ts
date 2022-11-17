@@ -15,6 +15,7 @@ import { NestAuthService } from './core/auth/nest-auth.service';
 import { BASE_URL } from './base-urls';
 import { LayoutModule } from './core/layout/layout.module';
 import { UserModule } from './features/user/user.module';
+import { OrderModule } from '../../../backend/src/models/order/order.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { UserModule } from './features/user/user.module';
     MaterialModule,
     NgxSpinnerModule,
     LayoutModule,
-    UserModule
+    UserModule,
   ],
   providers: [
     CookieService,

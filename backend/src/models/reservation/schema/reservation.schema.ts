@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type UserDocument = Reservation & Document;
+export type ReservationDocument = Reservation & Document;
 
 @Schema({ toJSON: { virtuals: true }, toObject: { virtuals: true } })
 export class Reservation {
@@ -24,4 +24,4 @@ export class Reservation {
     notes?: string[];
 }
 
-export const UserSchema = SchemaFactory.createForClass(Reservation);
+export const ReservationSchema = SchemaFactory.createForClass(Reservation);

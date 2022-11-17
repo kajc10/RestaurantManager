@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type UserDocument = Food & Document;
+export type FoodDocument = Food & Document;
 
 @Schema({ toJSON: { virtuals: true }, toObject: { virtuals: true } })
 export class Food {
@@ -12,4 +12,4 @@ export class Food {
     price: number;
 }
 
-export const UserSchema = SchemaFactory.createForClass(Food);
+export const FoodSchema = SchemaFactory.createForClass(Food);
