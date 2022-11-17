@@ -23,7 +23,6 @@ import { OrderModule } from '../../../backend/src/models/order/order.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
     CoreModule,
@@ -32,6 +31,7 @@ import { OrderModule } from '../../../backend/src/models/order/order.module';
     NgxSpinnerModule,
     LayoutModule,
     UserModule,
+    AppRoutingModule,
   ],
   providers: [
     CookieService,

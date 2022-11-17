@@ -1,2 +1,13 @@
-<mat-toolbar><p>asdas</p></mat-toolbar>
+<mat-toolbar class='navbar' color='primary'>
+    <div fxLayout="row">
+        <div class="title">RestaurnatManager</div>
+        <div fxHide.lt-md>
+            <a [routerLink]="['/orders']" mat-button>Rendelések</a>
+            <a [routerLink]="['/foods']" mat-button>Ételek</a>
+            <a [routerLink]="['/reservations']" mat-button>Foglalások</a>
+            <a [routerLink]="['/users']" mat-button *ngIf="user.isAdmin">Felhasználok</a>
+        </div>
+    </div>
+    <button mat-raised-button (click)="logout()">Kijelentkezés</button>
+</mat-toolbar>
 <router-outlet></router-outlet>

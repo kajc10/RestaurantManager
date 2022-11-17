@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserDto } from 'src/app/sdk';
+import { LoginService } from '../../auth/login.service';
+import { NestAuthService } from '../../auth/nest-auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  user: UserDto;
+
+  constructor(
+    private nestAuthService: NestAuthService,
+    private loginService: LoginService,
+  ) { }
 
   ngOnInit(): void {
+    this.user = this.nestAuthService.getUser();
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 
 }

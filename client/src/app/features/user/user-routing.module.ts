@@ -6,6 +6,7 @@ import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   layoutChildRoutes([
+    { path: '', redirectTo: 'users', pathMatch: 'full' },
     {path: 'users', component: UserListComponent, canActivate: [AuthGuard],}
   ]),
 ];
