@@ -15,7 +15,9 @@ import { NestAuthService } from './core/auth/nest-auth.service';
 import { BASE_URL } from './base-urls';
 import { LayoutModule } from './core/layout/layout.module';
 import { UserModule } from './features/user/user.module';
-import { OrderModule } from '../../../backend/src/models/order/order.module';
+import { ReservationModule } from './features/reservation/reservation.module';
+import { FoodModule } from './features/food/food.module';
+import { OrderModule } from './features/order/order.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,9 @@ import { OrderModule } from '../../../backend/src/models/order/order.module';
     MaterialModule,
     NgxSpinnerModule,
     LayoutModule,
+    ReservationModule,
+    OrderModule,
+    FoodModule,
     UserModule,
     AppRoutingModule,
   ],

@@ -1,26 +1,26 @@
 <div class="root" fxLayout="column" fxLayoutAlign="start center">
     <div class="table-container" fxLayout="column" fxFlex>
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
-            <p class="title">Felhasználók</p>
-            <button mat-fab color="primary" (click)="addUser()" class="add-fab" matTooltip="Új felhasználó felvétele">+</button>
+            <p class="title">Ételek</p>
+            <button mat-fab color="primary" (click)="addFood()" class="add-fab" matTooltip="Új étel felvétele">+</button>
         </div>
         <table mat-table [dataSource]="dataSource" matSort>
     
-            <ng-container matColumnDef="username">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Felhasználónév </th>
-                <td mat-cell *matCellDef="let user">
-                    {{user.username}}
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Név </th>
+                <td mat-cell *matCellDef="let food">
+                    {{food.name}}
                 </td>
             </ng-container>
     
-            <ng-container matColumnDef="admin">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Admin jogosultság</th>
-                <td mat-cell *matCellDef="let user">{{ user.isAdmin ? 'igen' : 'nem'}}</td>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Ár</th>
+                <td mat-cell *matCellDef="let food">{{ food.price}} HUF</td>
             </ng-container>
 
             <ng-container matColumnDef="operations">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Műveletek </th>
-                <td mat-cell *matCellDef="let user">
+                <td mat-cell *matCellDef="let food">
                     TODO
                 </td>
             </ng-container>

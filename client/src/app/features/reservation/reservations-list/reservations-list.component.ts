@@ -3,31 +3,34 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { UserDto } from 'src/app/sdk';
-import { UserService } from '../user.service';
+import { ReservationDto } from 'src/app/sdk';
+import { ReservationService } from '../reservation.service';
 
 @Component({
-    selector: 'app-user-list',
-    templateUrl: './user-list.component.html',
-    styleUrls: ['./user-list.component.scss']
+    selector: 'app-reservations-list',
+    templateUrl: './reservations-list.component.html',
+    styleUrls: ['./reservations-list.component.scss']
 })
-export class UserListComponent implements OnInit {
-    dataSource = new MatTableDataSource<UserDto>();
+export class ReservationsListComponent implements OnInit {
+    dataSource = new MatTableDataSource<ReservationDto>();
     displayedColumns = [
-        'username',
-        'admin',
-        'operations',
+        'date',
+        'numberOfPeople',
+        'name',
+        'contact',
+        'notes',
+        'operations'
     ];
-    users: UserDto[] = [];
+
+    reservations: ReservationDto[] = [];
 
     @ViewChild(MatSort, { static: true }) sort: MatSort;
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+
     constructor(
-        private userService: UserService,
+        private reservationService: ReservationService,
         private spinner: NgxSpinnerService,
-        // private dialog: MatDialog,
-        // private nestAuthService: NestAuthService,
     ) { }
 
     ngOnInit(): void {
@@ -39,10 +42,10 @@ export class UserListComponent implements OnInit {
 
     private reload(): void {
         this.spinner.show();
-        this.userService.getUsers().subscribe({
-            next: (users: UserDto[]) => {
-                this.users = users,
-                this.dataSource.data = this.users;
+        this.reservationService.getReservations().subscribe({
+            next: (reservations: ReservationDto[]) => {
+                this.reservations = reservations;
+                this.dataSource.data = this.reservations;
             },
             complete: () => {
                 this.spinner.hide();
@@ -54,6 +57,8 @@ export class UserListComponent implements OnInit {
         });
     }
 
-    addUser() {}
+    addReservation() {
+
+    }
 
 }
