@@ -21,7 +21,8 @@
             <ng-container matColumnDef="operations">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Műveletek </th>
                 <td mat-cell *matCellDef="let food">
-                    TODO
+                    <button class="material-icons">edit</button>
+                    <button class="material-icons" (click)="deleteFood(food.id)">delete</button>
                 </td>
             </ng-container>
     

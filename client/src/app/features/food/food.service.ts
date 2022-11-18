@@ -12,7 +12,21 @@ export class FoodService {
   ) { }
 
   getFoods(): Observable<FoodDto[]> {
-    //return this.foodApi.foodControllerFindAll();
-    return of([{id: '112', name: 'asd', price: 123}]);
+    return this.foodApi.foodControllerFindAll();
   }
+
+  getFoodById(id:string): Observable<FoodDto> {
+    return this.foodApi.foodControllerFindOne(id);
+  }
+
+  updateFood(id:string,data:FoodDto){
+   return this.foodApi.foodControllerUpdate(id,data);
+  }
+
+  deleteFood(id:string){
+    return this.foodApi.foodControllerRemove(id);
+   }
+
+
+
 }

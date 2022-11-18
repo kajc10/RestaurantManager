@@ -56,5 +56,15 @@ export class FoodsListComponent implements OnInit {
     addFood() {
 
     }
+    
+    public updateFood(id:string, data:FoodDto){
+        this.foodService.updateFood(id,data);
+    }
+
+    public deleteFood(id?:string){
+        alert('got food id:'+id);
+        this.foodService.deleteFood(id);
+        this.reload();
+    }
 
 }
