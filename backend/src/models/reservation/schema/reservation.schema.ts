@@ -5,9 +5,6 @@ export type ReservationDocument = Reservation & Document;
 
 @Schema({ toJSON: { virtuals: true }, toObject: { virtuals: true } })
 export class Reservation {
-    @Prop({ required: true, immutable: true })
-    id: string;
-
     @Prop({ required: true })
     date: Date;
 

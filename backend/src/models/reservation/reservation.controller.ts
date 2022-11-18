@@ -24,18 +24,18 @@ export class ReservationController {
   @Get(':id')
   @ApiBearerAuth()
   findOne(@Param('id') id: string) {
-    return this.reservationService.findOne(+id);
+    return this.reservationService.findOne(id);
   }
 
   @Patch(':id')
   @ApiBearerAuth()
   update(@Param('id') id: string, @Body() ReservationDto: ReservationDto) {
-    return this.reservationService.update(+id, ReservationDto);
+    return this.reservationService.update(id, ReservationDto);
   }
 
   @Delete(':id')
   @ApiBearerAuth()
   remove(@Param('id') id: string) {
-    return this.reservationService.remove(+id);
+    return this.reservationService.remove(id);
   }
 }

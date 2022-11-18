@@ -1,4 +1,4 @@
-import { ClassSerializerInterceptor, Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import {
     ApiBearerAuth,
@@ -48,7 +48,24 @@ export class UserController {
         return new UserDto(user.toObject());
     }
 
-    //TODO: ADD missing crud endpoints
+    //TODO: ADD missing auth decorators?
+    @Post()
+    @ApiBearerAuth()
+    create(@Body() UserDto: UserDto) {
+      return this.userService.create(UserDto);
+    }
+    
+    @Patch(':id')
+    @ApiBearerAuth()
+    update(@Param('id') id: string, @Body() UserDto: UserDto) {
+      return this.userService.update(id, UserDto);
+    }
+  
+    @Delete(':id')
+    @ApiBearerAuth()
+    remove(@Param('id') id: string) {
+      return this.userService.remove(id);
+    }
 
 
 }

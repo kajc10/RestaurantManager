@@ -18,7 +18,7 @@ export class OrderController {
   @Get(':id')
   @ApiBearerAuth()
   findOne(@Param('id') id: string) {
-    return this.orderService.findOne(+id);
+    return this.orderService.findOne(id);
   }
 
   @Post()
@@ -30,12 +30,12 @@ export class OrderController {
   @Patch(':id')
   @ApiBearerAuth()
   update(@Param('id') id: string, @Body() OrderDto: OrderDto) {
-    return this.orderService.update(+id, OrderDto);
+    return this.orderService.update(id, OrderDto);
   }
 
   @Delete(':id')
   @ApiBearerAuth()
   remove(@Param('id') id: string) {
-    return this.orderService.remove(+id);
+    return this.orderService.remove(id);
   }
 }

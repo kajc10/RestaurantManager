@@ -6,9 +6,6 @@ export type OrderDocument = Order & Document;
 
 @Schema({ toJSON: { virtuals: true }, toObject: { virtuals: true } })
 export class Order {
-    @Prop({ required: true, immutable: true })
-    id: string;
-
     @Prop({ required: true })
     orderItems: Food[];
 

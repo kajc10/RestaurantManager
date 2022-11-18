@@ -10,5 +10,6 @@ import { Order, OrderSchema } from './schema/order.schema';
   imports: [
     MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
   ],
+  exports: [OrderService],
 })
 export class OrderModule {}

@@ -24,18 +24,18 @@ export class FoodController {
   @Get(':id')
   @ApiBearerAuth()
   findOne(@Param('id') id: string) {
-    return this.foodService.findOne(+id);
+    return this.foodService.findOne(id);
   }
 
   @Patch(':id')
   @ApiBearerAuth()
   update(@Param('id') id: string, @Body() FoodDto: FoodDto) {
-    return this.foodService.update(+id, FoodDto);
+    return this.foodService.update(id, FoodDto);
   }
 
   @Delete(':id')
   @ApiBearerAuth()
   remove(@Param('id') id: string) {
-    return this.foodService.remove(+id);
+    return this.foodService.remove(id);
   }
 }
