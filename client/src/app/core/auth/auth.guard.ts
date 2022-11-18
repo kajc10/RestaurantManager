@@ -14,7 +14,10 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const currentUser = this.nestAuthService.getUser();
         if (currentUser) {
-            //TODO: admin nav...
+            if (route.data["admin"] && !currentUser.isAdmin) {
+                this.router.navigate(['/foods']);
+                return false;
+            }
             return true;
         }
 

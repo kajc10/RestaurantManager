@@ -6,11 +6,13 @@ import { UserListComponent } from './user-list/user-list.component';
 import { MaterialModule } from 'src/app/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserEditorComponent } from './user-editor/user-editor.component';
 
 
 @NgModule({
   declarations: [
-    UserListComponent
+    UserListComponent,
+    UserEditorComponent
   ],
   imports: [
     CommonModule,

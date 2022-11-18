@@ -1,3 +1,4 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 <mat-toolbar class='navbar' color='primary'>
     <div fxLayout="row">
         <div class="title">RestaurantManager</div>
@@ -5,7 +6,7 @@
             <a [routerLink]="['/orders']" mat-button>Rendelések</a>
             <a [routerLink]="['/foods']" mat-button>Ételek</a>
             <a [routerLink]="['/reservations']" mat-button>Foglalások</a>
-            <a [routerLink]="['/users']" mat-button *ngIf="user.isAdmin">Felhasználok</a>
+            <a [routerLink]="['/users']" mat-button *ngIf="user?.isAdmin">Felhasználok</a>
         </div>
     </div>
     <button mat-raised-button (click)="logout()">Kijelentkezés</button>

@@ -13,5 +13,17 @@ export class UserService {
 
     getUsers(): Observable<UserDto[]> {
        return this.userApi.userControllerFind();
-    } 
+    }
+
+    createUser(user): Observable<UserDto> {
+        return this.userApi.userControllerCreate(user);
+    }
+
+    editUser(user: UserDto): Observable<UserDto> {
+        return this.userApi.userControllerUpdate(user.id, user);
+    }
+
+    deleteUser(userId: string): Observable<any> {
+        return this.userApi.userControllerRemove(userId);
+    }
 }

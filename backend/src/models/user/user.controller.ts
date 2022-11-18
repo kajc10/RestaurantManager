@@ -35,8 +35,18 @@ export class UserController {
         ).map((userDocument) => new UserDto(userDocument.toObject()));
     }
 
+    @Post()
+    @ApiOkResponse({ type: UserDto })
+    @ApiBearerAuth()
+    @UseInterceptors(ClassSerializerInterceptor)
+    async create(@Body() userDto: UserDto): Promise<UserDto> {
+      const createdUser = await this.userService.create(userDto);
+      return new UserDto(createdUser.toObject());
+    }
+
     @Get(':userId')
     @ApiOkResponse({ type: UserDto })
+    @ApiBearerAuth()
     @ApiParam({
         name: 'userId',
         type: String,
@@ -47,24 +57,21 @@ export class UserController {
         const user = await this.userService.findById(params.userId);
         return new UserDto(user.toObject());
     }
-
-    //TODO: ADD missing auth decorators?
-    @Post()
-    @ApiBearerAuth()
-    create(@Body() UserDto: UserDto) {
-      return this.userService.create(UserDto);
-    }
     
     @Patch(':id')
+    @ApiOkResponse({ type: UserDto })
     @ApiBearerAuth()
-    update(@Param('id') id: string, @Body() UserDto: UserDto) {
-      return this.userService.update(id, UserDto);
+    @UseInterceptors(ClassSerializerInterceptor)
+    async update(@Param('id') id: string, @Body() userDto: UserDto): Promise<UserDto> {
+      const updatedUser = await this.userService.update(id, userDto);
+      return new UserDto(updatedUser.toObject());
     }
   
     @Delete(':id')
     @ApiBearerAuth()
-    remove(@Param('id') id: string) {
-      return this.userService.remove(id);
+    async remove(@Param('id') id: string): Promise<UserDto> {
+      const deletedUser = await this.userService.remove(id);
+      return new UserDto(deletedUser.toObject());
     }
 
 

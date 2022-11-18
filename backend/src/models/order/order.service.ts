@@ -10,25 +10,24 @@ export class OrderService {
     @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
   ) {}
 
-  async create(OrderDto: OrderDto): Promise <OrderDocument> {
+  async create(OrderDto: OrderDto): Promise<OrderDocument> {
     const order = new this.orderModel(OrderDto);
-    return order.save();
+    return await order.save();
   }
 
   async findAll(): Promise <OrderDocument[]> {
-    return this.orderModel.find()
-      .exec();
+    return await this.orderModel.find().exec();
   }
 
-  async findOne(id: string) {
-    return this.orderModel.findById(id);
+  async findOne(id: string): Promise<OrderDocument> {
+    return await this.orderModel.findById(id).exec();
   }
 
-  async update(id: string, OrderDto: OrderDto): Promise <OrderDocument> {
-    return this.orderModel.findByIdAndUpdate(id, OrderDto);
+  async update(id: string, OrderDto: OrderDto): Promise<OrderDocument> {
+    return await this.orderModel.findByIdAndUpdate(id, OrderDto).exec();
   }
 
-  async remove(id: string) {
-    return this.orderModel.findByIdAndRemove(id);
+  async remove(id: string): Promise<OrderDocument> {
+    return await this.orderModel.findByIdAndRemove(id).exec();
   }
 }

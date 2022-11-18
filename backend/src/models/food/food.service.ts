@@ -12,23 +12,23 @@ export class FoodService {
 
   async create(FoodDto: FoodDto): Promise <FoodDocument> {
     const food = new this.foodModel(FoodDto);
-    return food.save();
+    return await food.save();
   }
 
   async findAll(): Promise <FoodDocument[]> {
-    return this.foodModel.find()
+    return await this.foodModel.find()
       .exec();
   }
 
-  async findOne(id: string) {
-    return this.foodModel.findById(id);
+  async findOne(id: string): Promise<FoodDocument> {
+    return await this.foodModel.findById(id).exec();
   }
 
-  async update(id: string, FoodDto: FoodDto): Promise <FoodDocument> {
-    return this.foodModel.findByIdAndUpdate(id, FoodDto);
+  async update(id: string, FoodDto: FoodDto): Promise<FoodDocument> {
+    return await this.foodModel.findByIdAndUpdate(id, FoodDto).exec();
   }
 
-  async remove(id: string) {
-    return this.foodModel.findByIdAndRemove(id);
+  async remove(id: string): Promise<FoodDocument> {
+    return await this.foodModel.findByIdAndRemove(id).exec();
   }
 }

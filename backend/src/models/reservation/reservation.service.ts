@@ -10,25 +10,25 @@ export class ReservationService {
     @InjectModel(Reservation.name) private reservationModel: Model<ReservationDocument>,
   ) {}
 
-  async create(ReservationDto: ReservationDto): Promise < ReservationDocument > {
+  async create(ReservationDto: ReservationDto): Promise<ReservationDocument> {
     const reservation = new this.reservationModel(ReservationDto);
-    return reservation.save();
+    return await reservation.save();
   }
 
-  async findAll(): Promise < ReservationDocument[] > {
+  async findAll(): Promise<ReservationDocument[]> {
     return this.reservationModel.find()
       .exec();
   }
 
-  async findOne(id: string) {
-    return this.reservationModel.findById(id);
+  async findOne(id: string): Promise<ReservationDocument> {
+    return await this.reservationModel.findById(id);
   }
 
-  async update(id: string, ReservationDto: ReservationDto): Promise < ReservationDocument > {
-    return this.reservationModel.findByIdAndUpdate(id, ReservationDto);
+  async update(id: string, ReservationDto: ReservationDto): Promise<ReservationDocument> {
+    return await this.reservationModel.findByIdAndUpdate(id, ReservationDto);
   }
 
   async remove(id: string) {
-    return this.reservationModel.findByIdAndRemove(id);
+    return await this.reservationModel.findByIdAndRemove(id);
   }
 }

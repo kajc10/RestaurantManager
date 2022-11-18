@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ReservationDto } from './dto/reservation.dto';
 import { ReservationService } from './reservation.service';
@@ -9,33 +9,46 @@ export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
   @Post()
+  @ApiOkResponse({ type: ReservationDto })
   @ApiBearerAuth()
-  create(@Body() ReservationDto: ReservationDto) {
-    return this.reservationService.create(ReservationDto);
+  @UseInterceptors(ClassSerializerInterceptor)
+  async create(@Body() reservationDto: ReservationDto): Promise<ReservationDto> {
+    const reservation = await this.reservationService.create(reservationDto);
+    return new ReservationDto(reservation.toObject());
   }
 
   @Get()
   @ApiOkResponse({ type: [ReservationDto] })
   @ApiBearerAuth()
-  findAll() {
-    return this.reservationService.findAll();
+  @UseInterceptors(ClassSerializerInterceptor)
+  async findAll(): Promise<ReservationDto[]> {
+    return (await this.reservationService.findAll()).map((reservationDocument) => new ReservationDto(reservationDocument.toObject()));
   }
 
   @Get(':id')
+  @ApiOkResponse({ type: ReservationDto })
   @ApiBearerAuth()
-  findOne(@Param('id') id: string) {
-    return this.reservationService.findOne(id);
+  @UseInterceptors(ClassSerializerInterceptor)
+  async findOne(@Param('id') id: string): Promise<ReservationDto> {
+    const reservation = await this.reservationService.findOne(id);
+    return new ReservationDto(reservation.toObject());
   }
 
   @Patch(':id')
+  @ApiOkResponse({ type: ReservationDto })
   @ApiBearerAuth()
-  update(@Param('id') id: string, @Body() ReservationDto: ReservationDto) {
-    return this.reservationService.update(id, ReservationDto);
+  @UseInterceptors(ClassSerializerInterceptor)
+  async update(@Param('id') id: string, @Body() reservationDto: ReservationDto): Promise<ReservationDto> {
+    const updatedReservation = await this.reservationService.update(id, reservationDto);
+    return new ReservationDto(updatedReservation.toObject());
   }
 
   @Delete(':id')
+  @ApiOkResponse({ type: ReservationDto })
   @ApiBearerAuth()
-  remove(@Param('id') id: string) {
-    return this.reservationService.remove(id);
+  @UseInterceptors(ClassSerializerInterceptor)
+  async remove(@Param('id') id: string): Promise<ReservationDto> {
+    const deletedReservation = await this.reservationService.remove(id);
+    return new ReservationDto(deletedReservation.toObject());
   }
 }
