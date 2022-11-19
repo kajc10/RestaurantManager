@@ -1,1 +1,49 @@
-<p>order-editor works!</p>
+<div fxLayout="column">
+    <mat-toolbar class="mat-elevation-z2" color="primary">
+        <span class="title"> {{title}} </span>
+    </mat-toolbar>
+    <div fxLayout="column" class="form-container">
+        <form class="form" [formGroup]="orderEditorForm" (ngSubmit)="onSubmit()">
+            <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">fastorder</mat-icon>
+                <mat-form-field fxFlex>
+                    <input autocomplete="off" matInput required placeholder="OrderItems" formControlName="orderItems">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">fastorder</mat-icon>
+                <mat-form-field fxFlex>
+                    <input autocomplete="off" matInput required placeholder="Discount" formControlName="discount">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">admin_panel_settings</mat-icon>
+                <div fxFlex>
+                    <mat-checkbox formControlName="takeaway">Elvitel</mat-checkbox>
+                </div>
+            </div>
+
+            <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">admin_panel_settings</mat-icon>
+                <div fxFlex>
+                    <mat-checkbox formControlName="status">Status</mat-checkbox>
+                </div>
+            </div>
+
+
+
+        </form>
+    </div>
+
+    <div fxLayout="row" class="button-row">
+        <div fxLayout="row" fxLayoutAlign="end center" fxFlex>
+            <p class="error mr-4">{{error}}</p>
+            <button type="button" mat-stroked-button color="primary" class="cancel" (click)="cancel()">Mégsem</button>
+            <button type="submit" mat-flat-button color="primary" (click)="onSubmit()"
+                [disabled]="!orderEditorForm.valid">Mentés
+            </button>
+        </div>
+    </div>
+</div>

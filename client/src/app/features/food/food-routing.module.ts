@@ -7,7 +7,7 @@ import { FoodListComponent } from './food-list/food-list.component';
 const routes: Routes = [
     layoutChildRoutes([
         { path: '', redirectTo: 'foods', pathMatch: 'full' },
-        { path: 'foods', component:FoodListComponent, canActivate: [AuthGuard] }
+        { path: 'foods', component:FoodListComponent, canActivate: [AuthGuard]}
     ]),
 ];
 
