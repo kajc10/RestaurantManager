@@ -5,14 +5,17 @@ export type UserDocument = User & Document;
 
 @Schema({ toJSON: { virtuals: true }, toObject: { virtuals: true } })
 export class User {
-    @Prop({ required: true, immutable: true })
+    @Prop({ required: true })
     username: string;
 
     @Prop({ required: false })
     password?: string;
 
-    @Prop({ required: false })
+    @Prop({ required: false, default: false })
     isAdmin?: boolean;
+
+    @Prop({ required: true, default: 'registered' })
+    status?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -5,7 +5,7 @@ import { TransformObjectIdToString } from 'src/common/decorators/transform-objec
 
 @Exclude()
 export class UserDto {
-    //TODO: store more information about users
+    //TODO: store more information about users?
     @Expose({ name: 'id' })
     @TransformObjectIdToString()
     @ApiProperty({ name: 'id', type: String })
@@ -18,6 +18,10 @@ export class UserDto {
     @ApiProperty()
     @Expose()
     isAdmin: boolean;
+
+    @ApiProperty()
+    @Expose()
+    status: string;
 
     constructor(partial: Partial<UserDto>) {
         Object.assign(this, partial);

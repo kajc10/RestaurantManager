@@ -1,4 +1,4 @@
-import { Controller, Request, Post, UseGuards, ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, ClassSerializerInterceptor, UseInterceptors, Body } from '@nestjs/common';
 import { ApiBody, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from 'src/common/guards/local-auth.guard';
 import { Public } from 'src/common/decorators/public.decorator';
@@ -6,11 +6,16 @@ import { UserDto } from 'src/models/user/dto/user.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { LoginResponseDto } from './dto/login.response.dto';
+import { UserService } from 'src/models/user/user.service';
+import { RegisterDto } from './dto/register.dto';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        private userService: UserService,
+    ) {}
 
     @UseInterceptors(ClassSerializerInterceptor)
     @Public()
@@ -28,5 +33,18 @@ export class AuthController {
             access_token: jwtAuthToken,
             user: new UserDto(req.user),
         });
+    }
+
+    @Public()
+    @Post('register')
+    @ApiCreatedResponse({ type: UserDto })
+    @ApiBody({
+        type: RegisterDto,
+        required: true,
+    })
+    @UseInterceptors(ClassSerializerInterceptor)
+    async register(@Body() registerDto: RegisterDto): Promise<UserDto> {
+        const createdUser = await this.userService.create(registerDto);
+        return new UserDto(createdUser.toObject());
     }
 }
