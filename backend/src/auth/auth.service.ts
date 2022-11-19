@@ -20,6 +20,7 @@ export class AuthService {
                 username: user.username,
                 _id: user._id,
                 isAdmin: user.isAdmin,
+                status: user.status,
             }
         }
         return null;
