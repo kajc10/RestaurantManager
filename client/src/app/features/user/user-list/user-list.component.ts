@@ -18,6 +18,7 @@ export class UserListComponent implements OnInit {
     dataSource = new MatTableDataSource<UserDto>();
     displayedColumns = [
         'username',
+        'status',
         'admin',
         'operations',
     ];
@@ -76,6 +77,16 @@ export class UserListComponent implements OnInit {
         });
     }
 
+    approveUser(user: UserDto): void {
+        // TODO: Add confirmation dialog
+        user.status = 'active';
+        this.userService.editUser(user).subscribe({
+            next: () => {
+                this.reload()
+            },
+        });
+    }
+
     editUser(user: UserDto): void {
         this.dialog
         .open(UserEditorComponent, {
@@ -94,6 +105,7 @@ export class UserListComponent implements OnInit {
     }
 
     deleteUser(user: UserDto): void {
+        // TODO: Add confirmation dialog
         this.userService.deleteUser(user.id)
             .subscribe({
                 next: () => this.reload(),

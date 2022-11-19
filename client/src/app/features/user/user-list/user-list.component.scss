@@ -28,6 +28,11 @@ table {
   }
   
 .mat-column-operations {
-    width: 100px;
-    text-align: center;
+    width: 150px;
+    text-align: left;
+}
+
+.approve {
+    background-color: rgb(0, 179, 0);
+    color: white;
 }
