@@ -6,6 +6,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 
 const routes: Routes = [
   layoutChildRoutes([
+    { path: '', redirectTo: 'orders', pathMatch: 'full' },
     {path: 'orders', component: OrderListComponent, canActivate: [AuthGuard]}
   ]),
 ];
