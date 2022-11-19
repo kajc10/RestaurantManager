@@ -1,0 +1,51 @@
+<div fxLayout="column">
+    <mat-toolbar class="mat-elevation-z2" color="primary">
+        <span class="title"> {{title}} </span>
+    </mat-toolbar>
+    <div fxLayout="column" class="form-container">
+        <form class="form" [formGroup]="reservationEditorForm" (ngSubmit)="onSubmit()">	
+			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
+                <mat-form-field fxFlex>
+                    <input autocomplete="off" matInput required placeholder="Dátum" formControlName="date">
+                </mat-form-field>
+
+            </div>
+            <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
+                <mat-form-field fxFlex>
+                    <input autocomplete="off" matInput required placeholder="Fő" formControlName="numberOfPeople">
+                </mat-form-field>
+            </div>
+			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
+                <mat-form-field fxFlex>
+                    <input autocomplete="off" matInput required placeholder="Név" formControlName="name">
+                </mat-form-field>
+            </div>
+			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
+                <mat-form-field fxFlex>
+                    <input autocomplete="off" matInput required placeholder="Kontakt" formControlName="contact">
+                </mat-form-field>
+            </div>
+			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
+                <mat-form-field fxFlex>
+                    <input autocomplete="off" matInput required placeholder="Megjegyzés" formControlName="notes">
+                </mat-form-field>
+            </div>
+			
+        </form>
+    </div>
+
+    <div fxLayout="row" class="button-row">
+        <div fxLayout="row" fxLayoutAlign="end center" fxFlex>
+            <p class="error mr-4">{{error}}</p>
+            <button type="button" mat-stroked-button color="primary" class="cancel" (click)="cancel()">Mégsem</button>
+            <button type="submit" mat-flat-button color="primary" (click)="onSubmit()"
+                [disabled]="!reservationEditorForm.valid">Mentés
+            </button>
+        </div>
+    </div>
+</div>

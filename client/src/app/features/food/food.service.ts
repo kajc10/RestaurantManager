@@ -15,17 +15,22 @@ export class FoodService {
     return this.foodApi.foodControllerFindAll();
   }
 
-  getFoodById(id:string): Observable<FoodDto> {
-    return this.foodApi.foodControllerFindOne(id);
+  getFoodById(foodId:string): Observable<FoodDto> {
+    return this.foodApi.foodControllerFindOne(foodId);
   }
 
-  updateFood(id:string,data:FoodDto){
-   return this.foodApi.foodControllerUpdate(id,data);
+  createFood(food): Observable<FoodDto> {
+    return this.foodApi.foodControllerCreate(food);
   }
 
-  deleteFood(id:string){
-    return this.foodApi.foodControllerRemove(id);
-   }
+
+  editFood(food: FoodDto): Observable<FoodDto> {
+    return this.foodApi.foodControllerUpdate(food.id, food);
+}
+
+  deleteFood(foodId: string): Observable<any> {
+    return this.foodApi.foodControllerRemove(foodId);
+}
 
 
 

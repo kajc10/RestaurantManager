@@ -11,8 +11,20 @@ export class ReservationService {
     private reservationApi: ReservationApi,
   ) { }
 
+
   getReservations(): Observable<ReservationDto[]> {
-   // return this.reservationApi.reservationControllerFindAll();
-    return of([]);
+    return this.reservationApi.reservationControllerFindAll();
   }
+
+  createReservation(reservation): Observable<ReservationDto> {
+      return this.reservationApi.reservationControllerCreate(reservation);
+  }
+
+  editReservation(reservation: ReservationDto): Observable<ReservationDto> {
+      return this.reservationApi.reservationControllerUpdate(reservation.id, reservation);
+  }
+
+  deleteReservation(reservationId: string): Observable<any> {
+      return this.reservationApi.reservationControllerRemove(reservationId);
+}
 }

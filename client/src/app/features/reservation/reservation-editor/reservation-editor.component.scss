@@ -1,0 +1,26 @@
+span.title {
+    font-size: large;
+    margin-left: 1rem;
+}
+
+.form {
+    width: 100%;
+}
+
+div.form-row {
+    min-height: 64px;
+    margin-top: 1rem;
+  }
+
+div.form-container {
+    padding: 1rem;
+  }
+
+div.button-row {
+    margin: 1rem;
+}
+
+.mat-stroked-button.cancel {
+    margin-right: 16px;
+    border-color: primary;
+}
