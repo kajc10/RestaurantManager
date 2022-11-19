@@ -16,22 +16,22 @@
 
             <ng-container matColumnDef="numberOfPeople">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Vendégek száma</th>
-                <td mat-cell *matCellDef="let reservation">{{ reservation.numberOfPeople }</td>
+                <td mat-cell *matCellDef="let reservation">{{reservation.numberOfPeople}}</td>
             </ng-container>
 
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Név</th>
-                <td mat-cell *matCellDef="let reservation">{{ reservation.name}}</td>
+                <td mat-cell *matCellDef="let reservation">{{reservation.name}}</td>
             </ng-container>
 
             <ng-container matColumnDef="contact">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Kontakt</th>
-                <td mat-cell *matCellDef="let reservation">{{ reservation.contact}}</td>
+                <td mat-cell *matCellDef="let reservation">{{reservation.contact}}</td>
             </ng-container>
 
             <ng-container matColumnDef="notes">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Megjegyzések</th>
-                <td mat-cell *matCellDef="let reservation">{{ reservation.notes}}</td>
+                <td mat-cell *matCellDef="let reservation">{{reservation.notes}}</td>
             </ng-container>
 
             <ng-container matColumnDef="operations">
