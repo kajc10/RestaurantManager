@@ -1,3 +1,4 @@
+
 div.root {
     width: 100vw;
     height: 100vh;
@@ -5,8 +6,8 @@ div.root {
 }
 
 form.login-form-container {
-    width: 300px;
-    height: 320px;
+    width: 400px;
+    height: 420px;
     background: #303030;
     color: white;
     border-radius: 5px;
@@ -20,6 +21,10 @@ p.title {
     margin-bottom: 1.5rem;
 }
 
+mat-icon {
+    margin-right: 5px;
+}
+
 .form-field {
     margin: 1rem;
 }
@@ -29,17 +34,4 @@ p.title {
     margin-top: -20px;
     font-size: 12px;
     color: red;
-}
-
-.register-field {
-    margin-top: 1.5rem;
-    width: 300px;
-}
-
-a.register {
-    width: 300px;
-}
-
-mat-icon {
-    margin-right: 5px;
 }

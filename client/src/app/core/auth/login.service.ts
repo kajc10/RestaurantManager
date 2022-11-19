@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
-import { AuthService } from 'src/app/sdk';
+import { AuthService, UserDto } from 'src/app/sdk';
+import { RegisterDto } from 'src/app/sdk/model/registerDto';
 import { NestAuthService } from './nest-auth.service';
 
 @Injectable({
@@ -38,5 +39,9 @@ export class LoginService {
 	logout() {
 		this.nestAuthService.clear();
 		this.router.navigate(['/login']);
+	}
+
+	register(registerDto: RegisterDto): Observable<UserDto> {
+		return this.authService.authControllerRegister(registerDto);
 	}
 }

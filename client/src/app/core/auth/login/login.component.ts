@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute,
         private loginService: LoginService,
         private fb: UntypedFormBuilder,
         private spinner: NgxSpinnerService,
@@ -36,17 +35,19 @@ export class LoginComponent implements OnInit {
         this.loginService.login(this.loginForm.value.username, this.loginForm.value.password)
             .subscribe({
                 next: () => {
-                    // TODO: navigate to orders
-                    this.router.navigate(['/users']);
+                    this.router.navigate(['/orders']);
                 },
                 error: (e) => {
+                    this.spinner.hide();
                     if (e.status === 401) {
-                        this.error = 'Helytelen felhasznalónév vagy jelszó!'
+                        this.error = 'Helytelen felhasznalónév vagy jelszó!';
+                    } else if (e.status === 403) {
+                        this.error = 'A felhasznaló nem jogosult belépésre!';
                     } else {
                         this.error = e;
                     }
+                    
                 },
-                complete: () => this.spinner.hide()
             })
     }
 
