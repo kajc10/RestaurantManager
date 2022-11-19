@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -27,12 +28,11 @@ export class ReservationListComponent implements OnInit {
 
     @ViewChild(MatSort, { static: true }) sort: MatSort;
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    dialog: any;
-
 
     constructor(
         private reservationService: ReservationService,
         private spinner: NgxSpinnerService,
+        private dialog: MatDialog,
     ) { }
 
     ngOnInit(): void {
