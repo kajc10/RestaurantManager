@@ -39,7 +39,10 @@
                 <button mat-raised-button (click)="logout()">Kijelentkezés</button>
             </div>
         </mat-sidenav>
-        <router-outlet></router-outlet>
+        <div class="content-container">
+            <router-outlet></router-outlet>
+
+        </div>
     </mat-sidenav-container>
 </nav>
 
