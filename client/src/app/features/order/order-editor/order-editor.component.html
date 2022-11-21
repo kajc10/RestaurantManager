@@ -13,6 +13,24 @@
                 </mat-form-field>
             </div>
 
+            <!-- <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field class="example-chip-list" appearance="fill">
+                    <mat-label>Favorite Foods</mat-label>
+                    <mat-chip-grid #chipGrid aria-label="Enter foods">
+                        <mat-chip-row *ngFor="let food of foods" (removed)="remove_food_item(food)" [editable]="true"
+                            (edited)="edit_food_item(food, $event)">
+                            {{food.name}}
+                            <button matChipRemove [attr.aria-label]="'remove ' + food">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip-row>
+                        <input placeholder="New food..." [matChipInputFor]="chipGrid"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)" />
+                    </mat-chip-grid>
+                </mat-form-field>
+            </div> -->
+
 
 
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">

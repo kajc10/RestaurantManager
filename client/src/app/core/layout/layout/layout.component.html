@@ -1,5 +1,5 @@
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
-<mat-toolbar class='navbar' color='primary'>
+<!-- <mat-toolbar class='navbar' color='primary'>
     <div fxLayout="row">
         <div class="title">RestaurantManager</div>
         <div fxHide.lt-md>
@@ -10,5 +10,34 @@
         </div>
     </div>
     <button mat-raised-button (click)="logout()">Kijelentkezés</button>
-</mat-toolbar>
-<router-outlet></router-outlet>
+</mat-toolbar> -->
+
+<nav class="navbar navbar-toggleable-xs">
+    <mat-toolbar color="primary">
+        <div fxShow="true" fxHide.gt-sm="true">
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+        <h1>RestaurantManager</h1>
+        <span class="navbar-spacer"></span>
+        <div fxShow="true" fxHide.lt-md="true">
+            <button mat-button routerLink="/orders">Rendelések</button>
+            <button mat-button routerLink="/foods">Ételek</button>
+            <button mat-button routerLink="/reservations">Foglalások</button>
+            <button mat-button routerLink="/users" *ngIf="user?.isAdmin">Felhasználok</button>
+            <button mat-raised-button float-right (click)="logout()">Kijelentkezés</button>
+        </div>
+    </mat-toolbar>
+    <mat-sidenav-container fxFlexFill class="example-container">
+        <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+            <div fxLayout="column">
+                <button mat-button routerLink="/orders">Rendelések</button>
+                <button mat-button routerLink="/foods">Ételek</button>
+                <button mat-button routerLink="/reservations">Foglalások</button>
+                <button mat-button routerLink="/users" *ngIf="user?.isAdmin">Felhasználok</button>
+                <button mat-raised-button (click)="logout()">Kijelentkezés</button>
+            </div>
+        </mat-sidenav>
+
+        <router-outlet></router-outlet>
