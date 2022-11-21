@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { FoodDto, OrderDto, OrderService as OrderApi } from 'src/app/sdk';
 
 @Injectable({
@@ -31,15 +31,30 @@ export class OrderService {
     return this.orderApi.orderControllerRemove(orderId);
   }
 
-  printBill(id: string) {
-    alert('Printing bill for order: ' + id);
-  }
-
-  add_food_item(food:FoodDto){
+  add_food_item(food: FoodDto) {
     alert('add food item');
   }
-  remove_food_item(food:FoodDto){
+  remove_food_item(food: FoodDto) {
     alert('remove food item');
   }
 
+  downloadInvoice(orderId: string): Observable<any> {
+    // return this.orderApi
+    //   .orderControllerDownloadInvocie(
+    //     orderId,
+    //     'body',
+    //     false,
+    //     {
+    //       httpHeaderAccept: 'blob' as any,
+    //     },
+    //   )
+    //   .pipe(
+    //     map((res) => {
+    //       console.log('asdas')
+    //       return new Blob([res], { type: 'application/pdf' });
+    //     }),
+    //   );
+    alert('downloadInvoice');
+    return of();
+  }
 }
