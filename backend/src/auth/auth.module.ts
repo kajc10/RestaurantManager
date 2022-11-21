@@ -6,19 +6,20 @@ import { AuthService } from './auth.service';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
-
-// TODO: move this to config 
-export const jwtConstants = {
-  secret: 'secretKey',
-};
+import { ConfigModule, ConfigType } from '@nestjs/config';
+import authConfig from 'src/config/auth/auth.config';
 
 @Module({
   imports: [
     UserModule,
     PassportModule,
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1h' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigType<typeof authConfig>) => ({
+        secret: config.jwtSecret,
+        signOptions: { expiresIn: '1h' },
+      }),
+      inject: [authConfig.KEY],
     }),  
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],

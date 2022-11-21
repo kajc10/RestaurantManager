@@ -44,7 +44,7 @@ export class AuthController {
     })
     @UseInterceptors(ClassSerializerInterceptor)
     async register(@Body() registerDto: RegisterDto): Promise<UserDto> {
-        const createdUser = await this.userService.create(registerDto);
+        const createdUser = await this.userService.register(registerDto);
         return new UserDto(createdUser.toObject());
     }
 }
