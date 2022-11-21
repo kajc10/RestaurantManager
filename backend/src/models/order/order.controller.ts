@@ -1,12 +1,16 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Header, Param, Patch, Post, Res, UseInterceptors } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderDto } from './dto/order.dto';
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PdfGeneratorService } from 'src/pdf-generator/pdf-generator.service';
 
 @ApiTags('order')
 @Controller('order')
 export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+  constructor(
+    private readonly orderService: OrderService,
+    private readonly pdfGeneratorService: PdfGeneratorService,
+  ) {}
 
   @Get()
   @ApiOkResponse({ type: [OrderDto] })
@@ -51,5 +55,29 @@ export class OrderController {
   async remove(@Param('id') id: string): Promise<OrderDto> {
     const deletedOrder = await this.orderService.remove(id);
     return new OrderDto(deletedOrder.toObject());
+  }
+
+  @Get('invoice/:id')
+  @Header('Content-Type', 'application/pdf')
+  @Header('Content-Disposition', 'attachment;filename=audit-trail-report.pdf')
+  @Header('Content-Transfer-Encoding', 'binary')
+  @ApiBearerAuth()
+  @ApiResponse({
+    'x-is-file': true,
+    content: {
+        'application/pdf': {
+            schema: {
+                type: 'string',
+                format: 'binary',
+            },
+        },
+    },
+  } as any)
+  async downloadInvocie(@Res() res, @Param('id') id: string) {
+    const orderItem = await this.orderService.findOne(id);
+    console.log(orderItem);
+    const pdf = this.pdfGeneratorService.generateInvoice(orderItem);
+    pdf.pipe(res);
+    pdf.end();
   }
 }

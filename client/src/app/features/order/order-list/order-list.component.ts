@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { finalize } from 'rxjs';
 import { NestAuthService } from 'src/app/core/auth/nest-auth.service';
 import { OrderDto } from 'src/app/sdk';
 import { OrderEditorComponent, OrderEditorType } from '../order-editor/order-editor.component';
@@ -94,6 +95,31 @@ export class OrderListComponent implements OnInit {
             .subscribe({
                 next: () => this.reload(),
             });
+    }
+
+    downloadInvoice(order: OrderDto): void {
+        this.spinner.show();
+        this.orderService
+            .downloadInvoice(order.id)
+            .pipe(finalize(() => this.spinner.hide()))
+            .subscribe((blob) => {
+                if (
+                    window.navigator &&
+                    (window.navigator as any).msSaveOrOpenBlob
+                ) {
+                    (window.navigator as any).msSaveOrOpenBlob(blob);
+                    return;
+                }
+                const data = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = data;
+                link.download = `invoice-${new Date().getTime()}.pdf`;
+                link.click();
+                setTimeout(function () {
+                    // For Firefox it is necessary to delay revoking the ObjectURL
+                    window.URL.revokeObjectURL(data);
+                }, 100);
+            })
     }
 
 
