@@ -12,6 +12,7 @@ import { OrderModule } from './models/order/order.module';
 import { ReservationModule } from './models/reservation/reservation.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import authConfig from './config/auth/auth.config';
 
 @Module({
   imports: [
@@ -20,9 +21,10 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     ConfigModule.forRoot({
       envFilePath: [
         'src/config/server/.env',
-        'src/config/database/.env'
+        'src/config/database/.env',
+        'src/config/auth/.env',
       ],
-      load: [serverConfig, databaseConfig],
+      load: [serverConfig, databaseConfig, authConfig],
       isGlobal: true,
     }),
     MongooseModule.forRootAsync({
