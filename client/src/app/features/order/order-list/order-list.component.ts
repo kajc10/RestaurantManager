@@ -54,42 +54,50 @@ export class OrderListComponent implements OnInit {
         });
     }
 
-    
+
     addOrder(): void {
         this.dialog
-        .open(OrderEditorComponent, {
-            width: '600px',
-            panelClass: 'no-padding-dialog-container',
-            disableClose: true,
-            autoFocus: false,
-            data: { user: null, type: OrderEditorType.NEW },
-        })
-        .afterClosed()
-        .subscribe((shouldReload) => {
-            if (shouldReload) {
-                this.reload();
-            }
-        });
+            .open(OrderEditorComponent, {
+                width: '600px',
+                panelClass: 'no-padding-dialog-container',
+                disableClose: true,
+                autoFocus: false,
+                data: { user: null, type: OrderEditorType.NEW },
+            })
+            .afterClosed()
+            .subscribe((shouldReload) => {
+                if (shouldReload) {
+                    this.reload();
+                }
+            });
     }
 
     editOrder(order: OrderDto): void {
         this.dialog
-        .open(OrderEditorComponent, {
-            width: '600px',
-            panelClass: 'no-padding-dialog-container',
-            disableClose: true,
-            autoFocus: false,
-            data: { order: order, type: OrderEditorType.EDIT },
-        })
-        .afterClosed()
-        .subscribe((shouldReload) => {
-            if (shouldReload) {
-                this.reload();
-            }
-        });
+            .open(OrderEditorComponent, {
+                width: '600px',
+                panelClass: 'no-padding-dialog-container',
+                disableClose: true,
+                autoFocus: false,
+                data: { order: order, type: OrderEditorType.EDIT },
+            })
+            .afterClosed()
+            .subscribe((shouldReload) => {
+                if (shouldReload) {
+                    this.reload();
+                }
+            });
     }
 
     deleteOrder(order: OrderDto): void {
+        this.orderService.deleteOrder(order.id)
+            .subscribe({
+                next: () => this.reload(),
+            });
+    }
+
+    closeOrder(order: OrderDto): void {
+        this.orderService.printBill(order.id);
         this.orderService.deleteOrder(order.id)
             .subscribe({
                 next: () => this.reload(),

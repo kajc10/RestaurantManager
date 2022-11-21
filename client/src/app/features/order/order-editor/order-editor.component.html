@@ -4,31 +4,43 @@
     </mat-toolbar>
     <div fxLayout="column" class="form-container">
         <form class="form" [formGroup]="orderEditorForm" (ngSubmit)="onSubmit()">
+
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon matListIcon style="width: 40px;">fastorder</mat-icon>
+                <mat-icon matListIcon style="width: 40px;">fastfood</mat-icon>
                 <mat-form-field fxFlex>
-                    <input autocomplete="off" matInput required placeholder="OrderItems" formControlName="orderItems">
+                    <input autocomplete="off" matInput required placeholder="Rendelt ételek"
+                        formControlName="orderItems">
+                </mat-form-field>
+            </div>
+
+
+
+            <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">note_add</mat-icon>
+                <mat-form-field fxFlex>
+                    <input autocomplete="off" matInput required placeholder="Megjegyzés" formControlName="notes">
                 </mat-form-field>
             </div>
 
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon matListIcon style="width: 40px;">fastorder</mat-icon>
+                <mat-icon matListIcon style="width: 40px;">confirmation_number</mat-icon>
                 <mat-form-field fxFlex>
-                    <input type="number" autocomplete="off" matInput required placeholder="Discount" formControlName="discount">
+                    <input type="number" autocomplete="off" matInput required placeholder="Discount"
+                        formControlName="discount">
                 </mat-form-field>
             </div>
 
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon matListIcon style="width: 40px;">admin_panel_settings</mat-icon>
+                <mat-icon matListIcon style="width: 40px;">directions_walk</mat-icon>
                 <div fxFlex>
                     <mat-checkbox formControlName="takeaway">Elvitel</mat-checkbox>
                 </div>
             </div>
 
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon matListIcon style="width: 40px;">admin_panel_settings</mat-icon>
+                <mat-icon matListIcon style="width: 40px;">payment</mat-icon>
                 <div fxFlex>
-                    <mat-checkbox formControlName="status">Status</mat-checkbox>
+                    <mat-checkbox formControlName="status">Fizetve</mat-checkbox>
                 </div>
             </div>
 

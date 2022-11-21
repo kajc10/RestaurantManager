@@ -16,6 +16,10 @@ export class FoodDto {
 
     @ApiProperty()
     @Expose()
+    type: string;
+
+    @ApiProperty()
+    @Expose()
     price: number;
 
     constructor(partial: Partial<FoodDto>) {

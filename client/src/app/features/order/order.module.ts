@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OrderEditorComponent } from './order-editor/order-editor.component';
 import { MatCardModule } from '@angular/material/card';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     FlexLayoutModule,
     ReactiveFormsModule,
     MatCardModule ,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatChipsModule
   ]
 })
 export class OrderModule { }

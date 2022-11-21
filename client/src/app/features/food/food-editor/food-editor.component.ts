@@ -24,12 +24,14 @@ export enum FoodEditorType {
 export class FoodEditorComponent implements OnInit {
     foodEditorForm = this.fb.group({
         name: [''],
+        type: '',
         price: 0,
     });
 
     title = '';
     error = '';
     selectedFood: FoodDto;
+    food_types = ['Leves','Főétel','Desszert','Ital','Szósz','Egyéb']
 
     constructor(
         private fb: UntypedFormBuilder,
@@ -55,6 +57,7 @@ export class FoodEditorComponent implements OnInit {
             this.foodEditorForm.setValue(
                 {
                     name: this.data.food.name || '',
+                    type: this.data.food.type || '',
                     price: this.data.food.price || 0,
                 },
                 { emitEvent: false },
@@ -78,6 +81,7 @@ export class FoodEditorComponent implements OnInit {
                 this.foodService
                     .createFood({
                         name: this.foodEditorForm.value.name,
+                        type: this.foodEditorForm.value.type,
                         price: this.foodEditorForm.value.price,
                     })
                     .subscribe({
@@ -88,6 +92,7 @@ export class FoodEditorComponent implements OnInit {
             }
             case FoodEditorType.EDIT: {
                 this.selectedFood.name = this.foodEditorForm.value.name;
+                this.selectedFood.type = this.foodEditorForm.value.type;
                 this.selectedFood.price = this.foodEditorForm.value.price,
                 this.foodService.editFood(this.selectedFood)
                     .subscribe({

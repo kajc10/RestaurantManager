@@ -12,6 +12,19 @@
             </div>
 
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon matListIcon style="width: 40px;">fastfood</mat-icon>
+                <mat-form-field appearance="fill">
+
+                    <mat-label>Típus</mat-label>
+                    <mat-select  formControlName="type">
+                        <mat-option *ngFor="let type of food_types" [value]="type">
+                            {{type}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon matListIcon style="width: 40px;">attach_money</mat-icon>
                 <mat-form-field fxFlex>
                     <input type="number" autocomplete="off" matInput required placeholder="Ár" formControlName="price">

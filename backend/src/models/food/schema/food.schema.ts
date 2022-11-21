@@ -8,6 +8,9 @@ export class Food {
     @Prop({ required: true})
     name: string;
 
+    @Prop({ required: true})
+    type: string;
+
     @Prop({ required: true })
     price: number;
 }

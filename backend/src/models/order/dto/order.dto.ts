@@ -18,6 +18,10 @@ export class OrderDto {
 
     @ApiProperty()
     @Expose()
+    notes: [''];
+
+    @ApiProperty()
+    @Expose()
     status: boolean;
 
     @ApiProperty()

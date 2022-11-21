@@ -9,6 +9,9 @@ export class Order {
     @Prop({ required: true })
     orderItems: Food[];
 
+    @Prop({ required: false })
+    notes: string[];
+
     @Prop({ required: true })
     status: boolean;
 

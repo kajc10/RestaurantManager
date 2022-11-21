@@ -24,6 +24,7 @@ export enum OrderEditorType {
 export class OrderEditorComponent implements OnInit {
     orderEditorForm = this.fb.group({
         orderItems: [''],
+        notes: [''],
         discount: 0,
         status: false,
         takeaway: false,
@@ -57,6 +58,7 @@ export class OrderEditorComponent implements OnInit {
             this.orderEditorForm.setValue(
                 {
                     orderItems: this.data.order.orderItems || [''],
+                    notes: this.data.order.notes || [''],
                     status: this.data.order.status || false,
                     discount: this.data.order.discount || 0,
                     takeaway: this.data.order.takeaway || false,
@@ -83,6 +85,7 @@ export class OrderEditorComponent implements OnInit {
                 this.orderService
                     .createOrder({
                         orderItems: this.orderEditorForm.value.orderItems,
+                        notes: this.orderEditorForm.value.notes,
                         status:  this.orderEditorForm.value.status,
                         discount:  this.orderEditorForm.value.discount,
                         takeaway:  this.orderEditorForm.value.takeaway,
@@ -95,6 +98,7 @@ export class OrderEditorComponent implements OnInit {
             }
             case OrderEditorType.EDIT: {
                 this.selectedOrder.orderItems = this.orderEditorForm.value.orderItems,
+                this.selectedOrder.notes = this.orderEditorForm.value.notes,
                 this.selectedOrder.status =  this.orderEditorForm.value.status,
                 this.selectedOrder.discount =  this.orderEditorForm.value.discount,
                 this.selectedOrder.takeaway =  this.orderEditorForm.value.takeaway,

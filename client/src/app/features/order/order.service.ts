@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { OrderDto, OrderService as OrderApi } from 'src/app/sdk';
+import { FoodDto, OrderDto, OrderService as OrderApi } from 'src/app/sdk';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +30,16 @@ export class OrderService {
   deleteOrder(orderId: string): Observable<any> {
     return this.orderApi.orderControllerRemove(orderId);
   }
+
+  printBill(id: string) {
+    alert('Printing bill for order: ' + id);
+  }
+
+  add_food_item(food:FoodDto){
+    alert('add food item');
+  }
+  remove_food_item(food:FoodDto){
+    alert('remove food item');
+  }
+
 }

@@ -19,6 +19,7 @@ export class FoodListComponent implements OnInit {
     dataSource = new MatTableDataSource<FoodDto>();
     displayedColumns = [
         'name',
+        'type',
         'price',
         'operations',
     ];
