@@ -18,6 +18,7 @@ import { UserModule } from './features/user/user.module';
 import { ReservationModule } from './features/reservation/reservation.module';
 import { FoodModule } from './features/food/food.module';
 import { OrderModule } from './features/order/order.module';
+import { HeaderAcceptsInterceptor } from './core/header-accepts-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,11 @@ import { OrderModule } from './features/order/order.module';
       useClass: AuthorizationErrorInterceptorService,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderAcceptsInterceptor,
+      multi: true,
+  },
     {
       provide: Configuration,
       useFactory: (nestAuthService: NestAuthService) =>

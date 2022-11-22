@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReservationDto } from 'src/app/sdk';
 import { ReservationEditorComponent, ReservationEditorType } from '../reservation-editor/reservation-editor.component';
@@ -98,6 +99,10 @@ export class ReservationListComponent implements OnInit {
             .subscribe({
                 next: () => this.reload(),
             });
+    }
+
+    getReservationDate(date: string): string {
+        return moment(date).format('YYYY.MM.DD - HH:mm');
     }
 
 }

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReservationDto } from 'src/app/sdk';
 import { ReservationListComponent } from '../reservation-list/reservation-list.component';
@@ -24,6 +25,8 @@ export enum ReservationEditorType {
 export class ReservationEditorComponent implements OnInit {
     reservationEditorForm = this.fb.group({
 		date : '',
+        hour: '',
+        minute: '',
         numberOfPeople: 0,
         name: '',
         contact: '',
@@ -58,6 +61,8 @@ export class ReservationEditorComponent implements OnInit {
             this.reservationEditorForm.setValue(
                 {
 					date : this.data.reservation.date || '',
+                    hour: moment(this.data.reservation.date).format('HH'),
+                    minute: moment(this.data.reservation.date).format('mm'),
 					numberOfPeople: this.data.reservation.numberOfPeople || 0,
 					name: this.data.reservation.name || '',
 					contact: this.data.reservation.contact || '',
@@ -83,7 +88,7 @@ export class ReservationEditorComponent implements OnInit {
             case ReservationEditorType.NEW: {
                 this.reservationService
                     .createReservation({
-						date : this.reservationEditorForm.value.date,
+						date : moment(this.reservationEditorForm.value.date).set({"hour": this.reservationEditorForm.value.hour, "minute": this.reservationEditorForm.value.minute}).toISOString(),
 						numberOfPeople: this.reservationEditorForm.value.numberOfPeople,
 						name: this.reservationEditorForm.value.name,
 						contact: this.reservationEditorForm.value.contact,
@@ -96,7 +101,7 @@ export class ReservationEditorComponent implements OnInit {
                 break;
             }
             case ReservationEditorType.EDIT: {
-                this.selectedReservation.date = this.reservationEditorForm.value.date;
+                this.selectedReservation.date = moment(this.reservationEditorForm.value.date).set({"hour": this.reservationEditorForm.value.hour, "minute": this.reservationEditorForm.value.minute}).toISOString(),
                 this.selectedReservation.numberOfPeople = this.reservationEditorForm.value.numberOfPeople;
                 this.selectedReservation.name = this.reservationEditorForm.value.name;
                 this.selectedReservation.contact = this.reservationEditorForm.value.contact;

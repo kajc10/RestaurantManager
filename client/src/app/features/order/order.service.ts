@@ -36,6 +36,7 @@ export class OrderService {
   add_food_item(food: FoodDto) {
     alert('add food item');
   }
+
   remove_food_item(food: FoodDto) {
     alert('remove food item');
   }
@@ -46,22 +47,19 @@ export class OrderService {
 
 
   downloadInvoice(orderId: string): Observable<any> {
-    // return this.orderApi
-    //   .orderControllerDownloadInvocie(
-    //     orderId,
-    //     'body',
-    //     false,
-    //     {
-    //       httpHeaderAccept: 'blob' as any,
-    //     },
-    //   )
-    //   .pipe(
-    //     map((res) => {
-    //       console.log('asdas')
-    //       return new Blob([res], { type: 'application/pdf' });
-    //     }),
-    //   );
-    alert('downloadInvoice');
-    return of();
+    return this.orderApi
+      .orderControllerDownloadInvocie(
+        orderId,
+        'body',
+        false,
+        {
+          httpHeaderAccept: 'blob' as any,
+        },
+      )
+      .pipe(
+        map((res) => {
+          return new Blob([res], { type: 'application/pdf' });
+        }),
+      );
   }
 }

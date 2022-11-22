@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import PdfPrinter from "pdfmake";
-import { ContentTable, TableCell, TDocumentDefinitions } from "pdfmake/interfaces";
+import { Content, ContentTable, TableCell, TDocumentDefinitions } from "pdfmake/interfaces";
 import { Food } from "src/models/food/schema/food.schema";
 import { OrderDocument } from "src/models/order/schema/order.schema";
 import { fonts } from "./utils/fonts";
@@ -16,15 +16,48 @@ export class PdfGeneratorService {
 
     generateInvoice(order: OrderDocument): PDFKit.PDFDocument {
         const table = this.generateOrderItemsTable(order.orderItems);
+        const price = order.orderItems.reduce((a, b) => a + b.price, 0);
+        const discount = order?.discount > 0 ? order.orderItems.reduce((a, b) => a + b.price, 0) * (order.discount / 100) : 0;
+        const paid = price - discount;
         const docDefinition: TDocumentDefinitions = {
+            pageSize: 'A6',
             content: [
-                {text: 'Számla'},
-                {text: 'Számla'},
+                {text: 'Lorem epsum restaurant'},
+                {
+                    table: {
+                            widths: ['*'],
+                            body: [[" "], [" "]]
+                    },
+                    layout: {
+                        hLineWidth: function(i, node) {
+                            return (i === 0 || i === node.table.body.length) ? 0 : 2;
+                        },
+                        vLineWidth: function(i, node) {
+                            return 0;
+                        },
+                    }
+                },
+                table,
+                {
+                    table: {
+                            widths: ['*'],
+                            body: [[" "], [" "]]
+                    },
+                    layout: {
+                        hLineWidth: function(i, node) {
+                            return (i === 0 || i === node.table.body.length) ? 0 : 2;
+                        },
+                        vLineWidth: function(i, node) {
+                            return 0;
+                        },
+                    }
+                },
+                {text: `Összesen: ${price}`, style: styles.invoicePrice},
+                {text: `Kedvezmény: ${discount}`, style: styles.invoicePrice},
+                {text: `Fizetendő: ${paid}`, style: styles.invoicePrice}
             ],
 
         };
-
-        console.log(docDefinition);
 
         const options = {};
         const pdfDoc = this.printer.createPdfKitDocument(docDefinition, options);
@@ -32,7 +65,7 @@ export class PdfGeneratorService {
     }
 
 
-    private generateOrderItemsTable(orderItems: Food[]) {
+    private generateOrderItemsTable(orderItems: Food[]): Content {
         const result: ContentTable = {
             table: {
                 body: [],
@@ -58,6 +91,8 @@ export class PdfGeneratorService {
             widths: ['*', '*'],
             body: this.generateTableBody(headerRow, rows),
         }
+
+        return result;
     }
 
     private generateTableBody(

@@ -13,4 +13,7 @@ export const styles: StyleDictionary = {
         fontSize: 8,
         margin: [2, 5, 2, 5],
     },
+    invoicePrice: {
+        fontSize: 8,
+    }
 };
