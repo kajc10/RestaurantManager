@@ -20,9 +20,11 @@
   
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button (click)="deleteOrder(order)">Törlés</button>
-          <button mat-raised-button (click)="editOrder(order)">Szerkesztés</button>
-          <button mat-raised-button (click)="downloadInvoice(order)">Invoice</button>
+          <div fxFlex fxLayout="row wrap" fxLayoutAlign="space-between">
+            <button mat-raised-button (click)="deleteOrder(order)"  matTooltip="Törlés" matTooltipPosition="above" [matTooltipShowDelay]="500"><mat-icon matListIcon> delete </mat-icon></button>
+            <button mat-raised-button (click)="editOrder(order)"  matTooltip="Szerkesztés" matTooltipPosition="above" [matTooltipShowDelay]="500"><mat-icon matListIcon> edit </mat-icon></button>
+            <button mat-raised-button (click)="downloadInvoice(order)"  matTooltip="Számla letöltése" matTooltipPosition="above" [matTooltipShowDelay]="500"><mat-icon matListIcon> receipt </mat-icon></button>
+          </div>
         </mat-card-actions>
       </mat-card>
     </div>
