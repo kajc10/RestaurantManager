@@ -1,10 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { FormControl, UntypedFormBuilder } from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { OrderDto } from 'src/app/sdk';
+import { map, Observable, startWith } from 'rxjs';
+import { FoodDto, OrderDto } from 'src/app/sdk';
 import { OrderListComponent } from '../order-list/order-list.component';
 import { OrderService } from '../order.service';
+import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+
 
 export interface OrderEditorDialogData {
     order?: OrderDto;
@@ -34,15 +39,45 @@ export class OrderEditorComponent implements OnInit {
     error = '';
     selectedOrder: OrderDto;
 
+    allFoods : FoodDto[];
+    allFoodNames: string[] = ['Tmp'];
+    foodItems : string[];
+    selectedItems: FoodDto[];
+    separatorKeysCodes: number[] = [ENTER, COMMA];
+    foodCtrl = new FormControl('');
+    filteredFoods: Observable<string[]>;
+
+    @ViewChild('foodInput') foodInput: ElementRef<HTMLInputElement>;
+
     constructor(
         private fb: UntypedFormBuilder,
         private spinner: NgxSpinnerService,
         private orderService: OrderService,
         public dialogRef: MatDialogRef<OrderListComponent>,
         @Inject(MAT_DIALOG_DATA) public data: OrderEditorDialogData,
-    ) { }
+    ) { 
+
+        this.filteredFoods = this.foodCtrl.valueChanges.pipe(
+            startWith(null),
+            map((food: string | null) => (food ? this._filter(food) : this.allFoodNames.slice())),
+          );
+    }
 
     ngOnInit(): void {
+        this.orderService.getFoods().subscribe({
+            next: (foods: FoodDto[]) => {
+                this.allFoods = foods;
+            },
+            complete: () => {
+                this.spinner.hide();
+            },
+            error: (err) => {
+                console.log(err);
+                this.spinner.hide();
+            },
+        });
+
+
         switch (this.data.type) {
             case OrderEditorType.NEW: {
                 this.title = 'Rendelés létrehozása';
@@ -76,6 +111,43 @@ export class OrderEditorComponent implements OnInit {
     cancel(): void {
         this.dialogRef.close();
     }
+
+    addFoodItem(event: MatChipInputEvent): void {
+        const value = (event.value || '').trim();
+
+        // Add food
+        if (value) {
+          this.foodItems.push(value);
+        }
+        event.chipInput!.clear();
+        this.foodCtrl.setValue(null);
+        //this.orderService.add_food_item(food);
+    }
+    // remove_food_item(food: FoodDto) {
+    //     this.orderService.remove_food_item(food);
+    // }
+
+    removeFoodItem(food_id: string): void {
+        const food = this.selectedItems.find(element => element.id == food_id);
+        const index = this.selectedItems.indexOf(food);
+        if (index >= 0) {
+          this.selectedItems.splice(index, 1);
+        }
+      }
+    
+      selected(event: MatAutocompleteSelectedEvent): void {
+        this.foodItems.push(event.option.viewValue); //selected_items
+        this.foodInput.nativeElement.value = '';
+        this.foodCtrl.setValue(null);
+      }
+
+
+      private _filter(value: string): string[] {
+        const filterValue = value.toLowerCase();
+    
+        return this.allFoodNames.filter(food => food.toLowerCase().includes(filterValue));
+      }
+
 
     onSubmit(): void {
         this.spinner.show();

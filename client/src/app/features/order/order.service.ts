@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
-import { FoodDto, OrderDto, OrderService as OrderApi } from 'src/app/sdk';
+import { OrderDto, OrderService as OrderApi } from 'src/app/sdk';
+import { FoodDto, FoodService as FoodApi } from 'src/app/sdk';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class OrderService {
 
   constructor(
     private orderApi: OrderApi,
+    private foodApi: FoodApi,
   ) { }
 
   getOrders(): Observable<OrderDto[]> {
@@ -37,6 +39,11 @@ export class OrderService {
   remove_food_item(food: FoodDto) {
     alert('remove food item');
   }
+
+  getFoods(): Observable<FoodDto[]> {
+    return this.foodApi.foodControllerFindAll();
+  }
+
 
   downloadInvoice(orderId: string): Observable<any> {
     // return this.orderApi

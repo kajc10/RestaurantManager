@@ -14,6 +14,29 @@
             </div>
 
 
+            <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field class="example-chip-list" appearance="fill">
+                    <mat-label>Rendelések</mat-label>
+                    <mat-chip-list #chipList aria-label="Ételek">
+                      <mat-chip *ngFor="let selectedItem of selectedItems" (removed)="removeFoodItem(selectedItem.id)">
+                        {{selectedItem.name}}
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                      
+                      <input
+                      placeholder="Új étel..."
+                      #foodInput
+                      [formControl]="foodCtrl"
+                      [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      (matChipInputTokenEnd)="addFoodItem($event)">
+                    </mat-chip-list>
+                  </mat-form-field>
+            </div>
+
+
 
 
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
