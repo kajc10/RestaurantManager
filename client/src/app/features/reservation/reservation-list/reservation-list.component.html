@@ -10,7 +10,7 @@
             <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Dátum </th>
                 <td mat-cell *matCellDef="let reservation">
-                    {{reservation.date}}
+                    {{getReservationDate(reservation.date)}}
                 </td>
             </ng-container>
 

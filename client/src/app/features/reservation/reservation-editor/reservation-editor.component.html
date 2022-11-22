@@ -5,32 +5,39 @@
     <div fxLayout="column" class="form-container">
         <form class="form" [formGroup]="reservationEditorForm" (ngSubmit)="onSubmit()">	
 			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
-                <mat-form-field fxFlex>
-                    <input autocomplete="off" matInput required placeholder="Dátum" formControlName="date">
+                <mat-icon matListIcon style="width: 40px;">calendar_month</mat-icon>
+                <mat-form-field class="date-picker">
+                    <input matInput formControlName="date" autocomplete="off" [matDatepicker]="datePicker" placeholder="Dátum">
+                    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datePicker startView="month"></mat-datepicker>
                 </mat-form-field>
-
+                <mat-form-field class="date-picker">
+                    <input matInput formControlName="hour" type="number" placeholder="Óra">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput formControlName="minute" type="number" placeholder="Perc">
+                </mat-form-field>
             </div>
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
+                <mat-icon matListIcon style="width: 40px;">group</mat-icon>
                 <mat-form-field fxFlex>
                     <input type="number" autocomplete="off" matInput required placeholder="Fő" formControlName="numberOfPeople">
                 </mat-form-field>
             </div>
 			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
+                <mat-icon matListIcon style="width: 40px;">person</mat-icon>
                 <mat-form-field fxFlex>
                     <input autocomplete="off" matInput required placeholder="Név" formControlName="name">
                 </mat-form-field>
             </div>
 			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
+                <mat-icon matListIcon style="width: 40px;">contact_support</mat-icon>
                 <mat-form-field fxFlex>
                     <input autocomplete="off" matInput required placeholder="Kontakt" formControlName="contact">
                 </mat-form-field>
             </div>
 			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon matListIcon style="width: 40px;">fastreservation</mat-icon>
+                <mat-icon matListIcon style="width: 40px;">chat</mat-icon>
                 <mat-form-field fxFlex>
                     <input autocomplete="off" matInput required placeholder="Megjegyzés" formControlName="notes">
                 </mat-form-field>
