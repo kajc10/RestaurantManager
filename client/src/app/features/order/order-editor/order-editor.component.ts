@@ -39,13 +39,12 @@ export class OrderEditorComponent implements OnInit {
     error = '';
     selectedOrder: OrderDto;
 
-    allFoods : FoodDto[];
-    allFoodNames: string[] = ['Tmp'];
-    foodItems : string[];
-    selectedItems: FoodDto[];
+    //for chip
     separatorKeysCodes: number[] = [ENTER, COMMA];
-    foodCtrl = new FormControl('');
-    filteredFoods: Observable<string[]>;
+    formControlOrderItems = new FormControl('');
+    allFoods : FoodDto[];
+    allFoodNames: string[] = []; //to check matches real-time when typing new
+    matchingFoods: Observable<string[]>;  
 
     @ViewChild('foodInput') foodInput: ElementRef<HTMLInputElement>;
 
@@ -57,16 +56,11 @@ export class OrderEditorComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: OrderEditorDialogData,
     ) { 
 
-        this.filteredFoods = this.foodCtrl.valueChanges.pipe(
-            startWith(null),
-            map((food: string | null) => (food ? this._filter(food) : this.allFoodNames.slice())),
-          );
-    }
-
-    ngOnInit(): void {
         this.orderService.getFoods().subscribe({
             next: (foods: FoodDto[]) => {
                 this.allFoods = foods;
+                this.allFoodNames = this.allFoods.map(x=>x.name);
+                console.log(this.allFoodNames);
             },
             complete: () => {
                 this.spinner.hide();
@@ -77,6 +71,13 @@ export class OrderEditorComponent implements OnInit {
             },
         });
 
+        this.matchingFoods = this.formControlOrderItems.valueChanges.pipe(
+            startWith(null),
+            map((food: string | null) => (food ? this._filter(food) : this.allFoodNames.slice())),
+          );
+    }
+
+    ngOnInit(): void {
 
         switch (this.data.type) {
             case OrderEditorType.NEW: {
@@ -112,39 +113,41 @@ export class OrderEditorComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    addFoodItem(event: MatChipInputEvent): void {
-        const value = (event.value || '').trim();
+    getFoodByName(name:string){
+        return this.orderService.getFoodByName(name);
+    }
 
-        // Add food
+    addOrderItem(event: MatChipInputEvent): void {
+        const value = (event.value || '').trim();
+        var food = this.getFoodByName(value);
         if (value) {
-          this.foodItems.push(value);
+            this.data.order.orderItems.push(food);
+            //this.orderEditorForm.value.orderItems.push(food);
         }
         event.chipInput!.clear();
-        this.foodCtrl.setValue(null);
-        //this.orderService.add_food_item(food);
+        this.formControlOrderItems.setValue(null);
     }
-    // remove_food_item(food: FoodDto) {
-    //     this.orderService.remove_food_item(food);
-    // }
 
-    removeFoodItem(food_id: string): void {
-        const food = this.selectedItems.find(element => element.id == food_id);
-        const index = this.selectedItems.indexOf(food);
+    removeOrderItem(foodItem: FoodDto): void {
+        const food = this.orderEditorForm.value.orderItems.find(element => element.id == foodItem.id);
+        const index = this.orderEditorForm.value.orderItems.indexOf(food);
         if (index >= 0) {
-          this.selectedItems.splice(index, 1);
+            this.orderEditorForm.value.orderItems.splice(index, 1);
         }
       }
     
       selected(event: MatAutocompleteSelectedEvent): void {
-        this.foodItems.push(event.option.viewValue); //selected_items
+        var food = this.getFoodByName(event.option.viewValue);
+        
+        //this.orderEditorForm.value.orderItems.push(food); //selected_items
+        this.data.order.orderItems.push(food);
         this.foodInput.nativeElement.value = '';
-        this.foodCtrl.setValue(null);
+        this.formControlOrderItems.setValue(null);
       }
 
 
       private _filter(value: string): string[] {
         const filterValue = value.toLowerCase();
-    
         return this.allFoodNames.filter(food => food.toLowerCase().includes(filterValue));
       }
 

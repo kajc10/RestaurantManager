@@ -45,6 +45,15 @@ export class OrderService {
     return this.foodApi.foodControllerFindAll();
   }
 
+  //TODO: make this simpler
+  getFoodByName(name: string): FoodDto {
+    var f;
+    this.foodApi.foodControllerFindByName(name).subscribe((response: FoodDto) => {
+      f = response;
+    });
+    return f;
+  }
+
 
   downloadInvoice(orderId: string): Observable<any> {
     return this.orderApi

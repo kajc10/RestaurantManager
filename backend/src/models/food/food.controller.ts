@@ -34,6 +34,15 @@ export class FoodController {
     return new FoodDto(food.toObject());
   }
 
+  @Get(':name')
+  @ApiOkResponse({ type: FoodDto })
+  @ApiBearerAuth()
+  @UseInterceptors(ClassSerializerInterceptor)
+  async findByName(@Param('name') name: string): Promise<FoodDto> {
+    const food = await this.foodService.findByName(name);
+    return new FoodDto(food.toObject());
+  }
+
   @Patch(':id')
   @ApiOkResponse({ type: FoodDto })
   @ApiBearerAuth()
