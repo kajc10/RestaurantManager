@@ -18,8 +18,8 @@
                 <mat-form-field class="example-chip-list" appearance="fill" style="width: 100%  ;">
                     <mat-label>Rendelések</mat-label>
                     <mat-chip-list #chipList aria-label="Ételek">
-                      <mat-chip *ngFor="let selectedFoodString of selectedFoodStrings" (removed)="remove(selectedFoodString)">
-                        {{selectedFoodString}}
+                      <mat-chip *ngFor="let selectedFood of selectedFoods" (removed)="remove(selectedFood)">
+                        {{selectedFood.name}}
                         <button matChipRemove>
                           <mat-icon>cancel</mat-icon>
                         </button>
@@ -34,9 +34,9 @@
                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                       (matChipInputTokenEnd)="add($event)">
                     </mat-chip-list>
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-autocomplete #auto="matAutocomplete" >
                         <mat-option *ngFor="let food of matchingFoods | async" [value]="food">
-                          {{food}}
+                          {{food.name}}
                         </mat-option>
                       </mat-autocomplete>
                   </mat-form-field>
