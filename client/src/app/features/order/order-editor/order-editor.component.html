@@ -5,12 +5,12 @@
     <div fxLayout="column" class="form-container">
         <form class="form" [formGroup]="orderEditorForm" (ngSubmit)="onSubmit()">
 
-            <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
+            <!-- <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon matListIcon style="width: 40px;">fastfood</mat-icon>
                 <mat-form-field fxFlex>
                     <input autocomplete="off" matInput required placeholder="Rendelt ételek"  formControlName="orderItems">
                 </mat-form-field>
-            </div>
+            </div> -->
 
 
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
@@ -18,21 +18,21 @@
                 <mat-form-field class="example-chip-list" appearance="fill" style="width: 100%  ;">
                     <mat-label>Rendelések</mat-label>
                     <mat-chip-list #chipList aria-label="Ételek">
-                      <mat-chip *ngFor="let orderItem of orderEditorForm.value.orderItems" (removed)="removeOrderItem(orderItem)">
-                        {{orderItem.name}}
+                      <mat-chip *ngFor="let selectedFoodString of selectedFoodStrings" (removed)="remove(selectedFoodString)">
+                        {{selectedFoodString}}
                         <button matChipRemove>
                           <mat-icon>cancel</mat-icon>
                         </button>
                       </mat-chip>
                       
-                      <input
+                      <input formControlName="orderItems"
                       placeholder="Új étel..."
                       #foodInput
                       [formControl]="formControlOrderItems"
                       [matAutocomplete]="auto"
                       [matChipInputFor]="chipList"
                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                      (matChipInputTokenEnd)="addOrderItem($event)">
+                      (matChipInputTokenEnd)="add($event)">
                     </mat-chip-list>
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                         <mat-option *ngFor="let food of matchingFoods | async" [value]="food">

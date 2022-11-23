@@ -4,11 +4,12 @@ import { FormControl, UntypedFormBuilder } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { map, Observable, startWith } from 'rxjs';
+import { map, Observable, of, startWith } from 'rxjs';
 import { FoodDto, OrderDto } from 'src/app/sdk';
 import { OrderListComponent } from '../order-list/order-list.component';
 import { OrderService } from '../order.service';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { relativeTimeThreshold } from 'moment';
 
 
 export interface OrderEditorDialogData {
@@ -42,9 +43,11 @@ export class OrderEditorComponent implements OnInit {
     //for chip
     separatorKeysCodes: number[] = [ENTER, COMMA];
     formControlOrderItems = new FormControl('');
-    allFoods : FoodDto[];
+    allFoods: FoodDto[];
     allFoodNames: string[] = []; //to check matches real-time when typing new
-    matchingFoods: Observable<string[]>;  
+    matchingFoods: Observable<string[]>; //listing current autocomplete options
+
+    selectedFoodStrings: string[] = []; //
 
     @ViewChild('foodInput') foodInput: ElementRef<HTMLInputElement>;
 
@@ -54,13 +57,12 @@ export class OrderEditorComponent implements OnInit {
         private orderService: OrderService,
         public dialogRef: MatDialogRef<OrderListComponent>,
         @Inject(MAT_DIALOG_DATA) public data: OrderEditorDialogData,
-    ) { 
+    ) {
 
         this.orderService.getFoods().subscribe({
             next: (foods: FoodDto[]) => {
                 this.allFoods = foods;
-                this.allFoodNames = this.allFoods.map(x=>x.name);
-                console.log(this.allFoodNames);
+                this.allFoodNames = this.allFoods.map(x => x.name);
             },
             complete: () => {
                 this.spinner.hide();
@@ -74,7 +76,9 @@ export class OrderEditorComponent implements OnInit {
         this.matchingFoods = this.formControlOrderItems.valueChanges.pipe(
             startWith(null),
             map((food: string | null) => (food ? this._filter(food) : this.allFoodNames.slice())),
-          );
+        );
+
+
     }
 
     ngOnInit(): void {
@@ -90,6 +94,10 @@ export class OrderEditorComponent implements OnInit {
             }
         }
         if (this.data.order != null) {
+            if (this.data.order.orderItems != null){
+                this.selectedFoodStrings = this.data.order.orderItems.map(({ name }) => name);
+            }
+            
             this.selectedOrder = this.data.order;
             this.orderEditorForm.setValue(
                 {
@@ -113,47 +121,46 @@ export class OrderEditorComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    getFoodByName(name:string){
+    ///
+    getFoodByName(name: string) {
         return this.orderService.getFoodByName(name);
     }
 
-    addOrderItem(event: MatChipInputEvent): void {
+    add(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
-        var food = this.getFoodByName(value);
         if (value) {
-            this.data.order.orderItems.push(food);
-            //this.orderEditorForm.value.orderItems.push(food);
+            this.selectedFoodStrings.push(value);
         }
         event.chipInput!.clear();
         this.formControlOrderItems.setValue(null);
     }
 
-    removeOrderItem(foodItem: FoodDto): void {
-        const food = this.orderEditorForm.value.orderItems.find(element => element.id == foodItem.id);
-        const index = this.orderEditorForm.value.orderItems.indexOf(food);
+    remove(fruit: string): void {
+        const index = this.selectedFoodStrings.indexOf(fruit);
         if (index >= 0) {
-            this.orderEditorForm.value.orderItems.splice(index, 1);
+            this.selectedFoodStrings.splice(index, 1);
         }
-      }
-    
-      selected(event: MatAutocompleteSelectedEvent): void {
-        var food = this.getFoodByName(event.option.viewValue);
-        
-        //this.orderEditorForm.value.orderItems.push(food); //selected_items
-        this.data.order.orderItems.push(food);
+    }
+
+    selected(event: MatAutocompleteSelectedEvent): void {
+        this.selectedFoodStrings.push(event.option.viewValue);
         this.foodInput.nativeElement.value = '';
         this.formControlOrderItems.setValue(null);
-      }
+    }
 
-
-      private _filter(value: string): string[] {
+    private _filter(value: string): string[] {
         const filterValue = value.toLowerCase();
         return this.allFoodNames.filter(food => food.toLowerCase().includes(filterValue));
-      }
+    }
 
 
     onSubmit(): void {
         this.spinner.show();
+
+        this.orderEditorForm.value.orderItems = this.selectedFoodStrings.map(
+            str => { if(str){ return this.getFoodByName(str); } 
+            else{return of();}
+        });
 
         switch (this.data.type) {
             case OrderEditorType.NEW: {
@@ -161,9 +168,9 @@ export class OrderEditorComponent implements OnInit {
                     .createOrder({
                         orderItems: this.orderEditorForm.value.orderItems,
                         notes: this.orderEditorForm.value.notes,
-                        status:  this.orderEditorForm.value.status,
-                        discount:  this.orderEditorForm.value.discount,
-                        takeaway:  this.orderEditorForm.value.takeaway,
+                        status: this.orderEditorForm.value.status,
+                        discount: this.orderEditorForm.value.discount,
+                        takeaway: this.orderEditorForm.value.takeaway,
                     })
                     .subscribe({
                         next: (order) => this.dialogRef.close(order),
@@ -173,16 +180,16 @@ export class OrderEditorComponent implements OnInit {
             }
             case OrderEditorType.EDIT: {
                 this.selectedOrder.orderItems = this.orderEditorForm.value.orderItems,
-                this.selectedOrder.notes = this.orderEditorForm.value.notes,
-                this.selectedOrder.status =  this.orderEditorForm.value.status,
-                this.selectedOrder.discount =  this.orderEditorForm.value.discount,
-                this.selectedOrder.takeaway =  this.orderEditorForm.value.takeaway,
+                    this.selectedOrder.notes = this.orderEditorForm.value.notes,
+                    this.selectedOrder.status = this.orderEditorForm.value.status,
+                    this.selectedOrder.discount = this.orderEditorForm.value.discount,
+                    this.selectedOrder.takeaway = this.orderEditorForm.value.takeaway,
 
-                this.orderService.editOrder(this.selectedOrder)
-                    .subscribe({
-                        next: (order) => this.dialogRef.close(order),
-                        error: (error) => this.error = error,
-                    });
+                    this.orderService.editOrder(this.selectedOrder)
+                        .subscribe({
+                            next: (order) => this.dialogRef.close(order),
+                            error: (error) => this.error = error,
+                        });
                 break;
             }
         }
