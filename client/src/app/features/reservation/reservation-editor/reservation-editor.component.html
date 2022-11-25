@@ -7,15 +7,15 @@
 			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon matListIcon style="width: 40px;">calendar_month</mat-icon>
                 <mat-form-field class="date-picker">
-                    <input matInput formControlName="date" autocomplete="off" [matDatepicker]="datePicker" placeholder="Dátum">
+                    <input matInput formControlName="date" autocomplete="off" required [matDatepicker]="datePicker" placeholder="Dátum">
                     <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
                     <mat-datepicker #datePicker startView="month"></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="date-picker">
-                    <input matInput formControlName="hour" type="number" placeholder="Óra">
+                    <input matInput formControlName="hour" required type="number" placeholder="Óra">
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput formControlName="minute" type="number" placeholder="Perc">
+                    <input matInput formControlName="minute" required type="number" placeholder="Perc">
                 </mat-form-field>
             </div>
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
@@ -39,7 +39,7 @@
 			<div class="form-row" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon matListIcon style="width: 40px;">chat</mat-icon>
                 <mat-form-field fxFlex>
-                    <input autocomplete="off" matInput required placeholder="Megjegyzés" formControlName="notes">
+                    <input autocomplete="off" matInput placeholder="Megjegyzés" formControlName="notes">
                 </mat-form-field>
             </div>
 			

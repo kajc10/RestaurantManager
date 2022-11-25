@@ -2,7 +2,7 @@
     <div class="table-container" fxLayout="column" fxFlex>
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
             <p class="title">Ételek</p>
-            <button mat-fab color="primary" (click)="addFood()" class="add-fab"
+            <button mat-fab color="primary" (click)="addFood()" class="add-fab" *ngIf="adminUser.isAdmin"
                 matTooltip="Új étel felvétele">+</button>
         </div>
 
