@@ -1,29 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
-html,
-body {
-    height: 100%;
-}
+@import 'themes/theme-variables.scss';
 
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+@import "@angular/material/theming";
 
+@include mat.core();
 
-button.add-fab {
-    font-size: 32px;
-    font-weight: 100;
-    margin-right: 24px;
-    margin-top: 24px;
-}
+@include mat.all-component-themes($restaurant-webapp-theme);
 
-.no-padding-dialog-container .mat-dialog-container {
-    padding: 0;
-    max-height: 100vh;
-}
+@include mat.button-theme($restaurant-webapp-primary-theme);
 
-.error {
-    color: #ff4646;
-    font-size: 12px;
-}
+@import 'themes/theme.scss';

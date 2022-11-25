@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+button.add-fab {
+    font-size: 32px;
+    font-weight: 100;
+    margin-right: 24px;
+    margin-top: 24px;
+}
+
+.no-padding-dialog-container .mat-dialog-container {
+    padding: 0;
+    max-height: 100vh;
+}
+
+.error {
+    color: #ff4646;
+    font-size: 12px;
+}

@@ -1,0 +1,54 @@
+/*
+ * Application global variables.
+ */
+ @use '@angular/material' as mat;
+
+ // Angular Material custom theme
+
+ @import '@angular/material/theming';
+ 
+ $restaurant-palette: (
+     
+     50 : #f4f9ed,
+     100 : #e3f0d1,
+     200 : #d1e6b4,
+     300 : #c0dc97,
+     400 : #b2d480,
+     500 : #a5cd6b,
+     600 : #95bc62,
+     700 : #81a857,
+     800 : #6f934d,
+     900 : #50703d,
+     A100 : #cde8ce,
+     A200 : #aed9b0,
+     A400 : #77c07a,
+     A700 : #4d934f,
+     contrast: (
+         50 : #000000,
+         100 : #000000,
+         200 : #000000,
+         300 : #ffffff,
+         400 : #ffffff,
+         500 : #ffffff,
+         600 : #ffffff,
+         700 : #ffffff,
+         800 : #ffffff,
+         900 : #ffffff,
+         A100 : #000000,
+         A200 : #000000,
+         A400 : #000000,
+         A700 : #000000,
+     )
+ );
+ 
+ $restaurant-webapp-primary: mat.define-palette($restaurant-palette);
+ $restaurant-webapp-accent: mat.define-palette($restaurant-palette, 500, 500, 500);
+ $restaurant-webapp-warn: mat.define-palette(mat.$red-palette);
+ 
+ $restaurant-webapp-theme: mat.define-light-theme($restaurant-webapp-primary, $restaurant-webapp-accent, $restaurant-webapp-warn);
+ $restaurant-webapp-primary-theme: mat.define-light-theme($restaurant-webapp-primary, $restaurant-webapp-primary);
+ 
+ $primary: mat.get-color-from-palette($restaurant-webapp-primary);
+ $accent: mat.get-color-from-palette($restaurant-webapp-accent);
+ $warn: mat.get-color-from-palette($restaurant-webapp-warn);
+ 
