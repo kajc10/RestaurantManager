@@ -24,10 +24,6 @@ export class FoodService {
     return await this.foodModel.findById(id).exec();
   }
 
-  async findByName(name: string): Promise<FoodDocument> {
-    return await this.foodModel.findOne({ name: name }).exec();
-  }
-
   async update(id: string, FoodDto: FoodDto): Promise<FoodDocument> {
     return await this.foodModel.findByIdAndUpdate(id, FoodDto).exec();
   }
