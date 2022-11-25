@@ -10,11 +10,10 @@
       <mat-card fxLayout="column" class="card" *ngFor="let order of orders; let i = index">
         <mat-card-header>
           <mat-card-title>Rendelés #{{i + 1}}</mat-card-title>
-          <!-- <mat-card-subtitle>Time</mat-card-subtitle> -->
         </mat-card-header>
         <mat-card-content fxFlex>
           <p>Rendelés: {{getOrderItemsString(order.orderItems)}} </p>
-          <p>Megjegyzések: {{order.notes}} </p>
+          <p>Megjegyzés: {{order.notes}} </p>
           <p>Elvitel: {{order.takeaway === true ? 'Igen' : 'Nem'}} </p>
           <p>Státusz: {{order.status === false ? 'Folyamatban' : 'Fizetve'}} </p>
   
