@@ -26,7 +26,7 @@ export class OrderDto {
 
     @ApiProperty()
     @Expose()
-    discount?: number; //or list?
+    discount?: number;
 
     @ApiProperty()
     @Expose()

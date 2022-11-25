@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs';
 import { NestAuthService } from 'src/app/core/auth/nest-auth.service';
-import { OrderDto } from 'src/app/sdk';
+import { FoodDto, OrderDto } from 'src/app/sdk';
 import { OrderEditorComponent, OrderEditorType } from '../order-editor/order-editor.component';
 import { OrderService } from '../order.service';
 
@@ -123,7 +123,9 @@ export class OrderListComponent implements OnInit {
             })
     }
 
-
+    getOrderItemsString(orderItems): string {
+        return orderItems.map((orderItem) => orderItem.name).join(', ');
+    }
 
 
 }

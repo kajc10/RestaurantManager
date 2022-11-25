@@ -7,20 +7,20 @@
     </div>
 
     <div fxFlex fxLayout="row wrap"> 
-      <mat-card  class="card" *ngFor="let order of orders; let i = index">
+      <mat-card fxLayout="column" class="card" *ngFor="let order of orders; let i = index">
         <mat-card-header>
-          <mat-card-title>Order# {{i}}</mat-card-title>
-          <mat-card-subtitle>Time</mat-card-subtitle>
+          <mat-card-title>Rendelés #{{i + 1}}</mat-card-title>
+          <!-- <mat-card-subtitle>Time</mat-card-subtitle> -->
         </mat-card-header>
-        <mat-card-content>
-          <p>Rendelés: {{order.orderItems}} </p>
+        <mat-card-content fxFlex>
+          <p>Rendelés: {{getOrderItemsString(order.orderItems)}} </p>
           <p>Megjegyzések: {{order.notes}} </p>
-          <p>Elvitel: {{order.takeaway}} </p>
-          <p>Státusz: {{order.status}} </p>
+          <p>Elvitel: {{order.takeaway === true ? 'Elvitel' : 'Helyben fogyasztás'}} </p>
+          <p>Státusz: {{order.status === false ? 'Folyamatban' : 'Fizetve'}} </p>
   
         </mat-card-content>
         <mat-card-actions>
-          <div fxFlex fxLayout="row wrap" fxLayoutAlign="space-between">
+          <div fxFlex fxLayout="row wrap" fxLayoutAlign="space-between" class="operations">
             <button mat-raised-button (click)="deleteOrder(order)"  matTooltip="Törlés" matTooltipPosition="above" [matTooltipShowDelay]="500"><mat-icon matListIcon> delete </mat-icon></button>
             <button mat-raised-button (click)="editOrder(order)"  matTooltip="Szerkesztés" matTooltipPosition="above" [matTooltipShowDelay]="500"><mat-icon matListIcon> edit </mat-icon></button>
             <button mat-raised-button (click)="downloadInvoice(order)"  matTooltip="Számla letöltése" matTooltipPosition="above" [matTooltipShowDelay]="500"><mat-icon matListIcon> receipt </mat-icon></button>

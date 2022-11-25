@@ -16,13 +16,13 @@ export class PdfGeneratorService {
 
     generateInvoice(order: OrderDocument): PDFKit.PDFDocument {
         const table = this.generateOrderItemsTable(order.orderItems);
-        const price = order.orderItems.reduce((a, b) => a + b.price, 0);
-        const discount = order?.discount > 0 ? order.orderItems.reduce((a, b) => a + b.price, 0) * (order.discount / 100) : 0;
+        const price = Math.ceil(order.orderItems.reduce((a, b) => a + b.price, 0));
+        const discount = order?.discount > 0 ? Math.ceil(order.orderItems.reduce((a, b) => a + b.price, 0) * (order.discount / 100)) : 0;
         const paid = price - discount;
         const docDefinition: TDocumentDefinitions = {
             pageSize: 'A6',
             content: [
-                {text: 'Lorem epsum restaurant'},
+                {text: 'Számla', style: 'header'}, 
                 {
                     table: {
                             widths: ['*'],
@@ -52,9 +52,10 @@ export class PdfGeneratorService {
                         },
                     }
                 },
-                {text: `Összesen: ${price}`, style: styles.invoicePrice},
-                {text: `Kedvezmény: ${discount}`, style: styles.invoicePrice},
-                {text: `Fizetendő: ${paid}`, style: styles.invoicePrice}
+                {text: `Összesen: ${price} Ft`, style: styles.invoicePrice},
+                {text: `Kedvezmény: ${discount} Ft`, style: styles.invoicePrice},
+                {text: `Fizetendő: ${paid} Ft`, style: styles.invoicePrice},
+                {text: 'Köszönjük hogy a vendégünk volt!', alignment: "center", bold: true, marginTop: 5},
             ],
 
         };

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { OrderDto, OrderService as OrderApi } from 'src/app/sdk';
 import { FoodDto, FoodService as FoodApi } from 'src/app/sdk';
 
@@ -33,27 +33,9 @@ export class OrderService {
     return this.orderApi.orderControllerRemove(orderId);
   }
 
-  add_food_item(food: FoodDto) {
-    alert('add food item');
-  }
-
-  remove_food_item(food: FoodDto) {
-    alert('remove food item');
-  }
-
   getFoods(): Observable<FoodDto[]> {
     return this.foodApi.foodControllerFindAll();
   }
-
-  //TODO: make this simpler
-  getFoodByName(name: string): FoodDto {
-    var f;
-    this.foodApi.foodControllerFindByName(name).subscribe((response: FoodDto) => {
-      f = response;
-    });
-    return f;
-  }
-
 
   downloadInvoice(orderId: string): Observable<any> {
     return this.orderApi

@@ -75,7 +75,6 @@ export class OrderController {
   } as any)
   async downloadInvocie(@Res() res, @Param('id') id: string) {
     const orderItem = await this.orderService.findOne(id);
-    console.log(orderItem);
     const pdf = this.pdfGeneratorService.generateInvoice(orderItem);
     pdf.pipe(res);
     pdf.end();

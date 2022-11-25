@@ -15,30 +15,21 @@
 
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon matListIcon style="width: 40px;">fastfood</mat-icon>
-                <mat-form-field class="example-chip-list" appearance="fill" style="width: 100%  ;">
+                <mat-form-field class="example-chip-list" appearance="fill" style="width: 100%;">
                     <mat-label>Rendelések</mat-label>
-                    <mat-chip-list #chipList aria-label="Ételek">
-                      <mat-chip *ngFor="let selectedFood of selectedFoods" (removed)="remove(selectedFood)">
-                        {{selectedFood.name}}
-                        <button matChipRemove>
-                          <mat-icon>cancel</mat-icon>
-                        </button>
-                      </mat-chip>
-                      
-                      <input formControlName="orderItems"
-                      placeholder="Új étel..."
-                      #foodInput
-                      [formControl]="formControlOrderItems"
-                      [matAutocomplete]="auto"
-                      [matChipInputFor]="chipList"
-                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                      (matChipInputTokenEnd)="add($event)">
+                    <mat-chip-list #chipList formControlName="orderItems">
+                        <mat-chip *ngFor="let orderItem of orderEditorForm.get('orderItems').value" (removed)="remove(orderItem)">
+                            {{orderItem.name}}
+                            <mat-icon fxFlex fxLayoutAlign="end" matChipRemove>cancel</mat-icon>
+                        </mat-chip>
                     </mat-chip-list>
-                    <mat-autocomplete #auto="matAutocomplete" >
-                        <mat-option *ngFor="let food of matchingFoods | async" [value]="food">
-                          {{food.name}}
+                    <input class="chip-input" #orderItemInput formControlName="input" autocomplete="off" matInput
+                        [matChipInputFor]="chipList" [matAutocomplete]="autoOrderItem" />
+                    <mat-autocomplete #autoOrderItem="matAutocomplete" (optionSelected)="selected($event)">
+                        <mat-option *ngFor="let food of filteredFoods | async" [value]="food.name">
+                            {{food.name}}
                         </mat-option>
-                      </mat-autocomplete>
+                    </mat-autocomplete>
                   </mat-form-field>
             </div>
 
@@ -48,7 +39,7 @@
             <div class="form-row" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon matListIcon style="width: 40px;">note_add</mat-icon>
                 <mat-form-field fxFlex>
-                    <input autocomplete="off" matInput required placeholder="Megjegyzés" formControlName="notes">
+                    <input autocomplete="off" matInput placeholder="Megjegyzés" formControlName="notes">
                 </mat-form-field>
             </div>
 
