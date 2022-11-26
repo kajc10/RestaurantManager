@@ -31,7 +31,7 @@ export class FoodEditorComponent implements OnInit {
     title = '';
     error = '';
     selectedFood: FoodDto;
-    food_types = ['Leves','Főétel','Desszert','Ital','Szósz','Egyéb']
+    food_types = ['Leves','Főétel','Köret','Desszert','Ital','Szósz','Egyéb']
 
     constructor(
         private fb: UntypedFormBuilder,
