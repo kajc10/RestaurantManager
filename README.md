@@ -43,4 +43,4 @@ npm i
 ```sh
 ng serve
 ```
-Then navigate to `http://localhost:4200/`.
+Then navigate to `http://localhost:4200/` and you can login with username: test and password: Test1234
